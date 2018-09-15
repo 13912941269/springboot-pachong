@@ -1,6 +1,0 @@
-server:
-  port: 9000
-
-beetl:
-  templatesPath: templates
-  templatesPropertiesPath: properties/beetl.properties
