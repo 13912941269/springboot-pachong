@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pachong.dbmapper.PCBookMapper" >
+  <resultMap id="BaseResultMap" type="com.pachong.model.PCBook" >
+    <id column="book_id" property="bookId" jdbcType="INTEGER" />
+    <result column="book_name" property="bookName" jdbcType="VARCHAR" />
+    <result column="book_img" property="bookImg" jdbcType="VARCHAR" />
+    <result column="book_auth" property="bookAuth" jdbcType="VARCHAR" />
+    <result column="colum_id" property="columId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.pachong.model.PCBook" extends="BaseResultMap" >
+    <result column="book_desc" property="bookDesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+
+
+  <sql id="Base_Column_List" >
+    book_id, book_name, book_img, book_auth, colum_id
+  </sql>
+
+
+  <sql id="Blob_Column_List" >
+    book_desc
+  </sql>
+
+
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pc_book
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="selectByBookName" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pc_book
+    where book_name = #{bookName,jdbcType=VARCHAR} limit 0,1
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pc_book
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="bookId" parameterType="com.pachong.model.PCBook" >
+    insert into pc_book
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bookId != null" >
+        book_id,
+      </if>
+      <if test="bookName != null" >
+        book_name,
+      </if>
+      <if test="bookImg != null" >
+        book_img,
+      </if>
+      <if test="bookAuth != null" >
+        book_auth,
+      </if>
+      <if test="columId != null" >
+        colum_id,
+      </if>
+      <if test="bookDesc != null" >
+        book_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bookId != null" >
+        #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="bookName != null" >
+        #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookImg != null" >
+        #{bookImg,jdbcType=VARCHAR},
+      </if>
+      <if test="bookAuth != null" >
+        #{bookAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="columId != null" >
+        #{columId,jdbcType=INTEGER},
+      </if>
+      <if test="bookDesc != null" >
+        #{bookDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pachong.model.PCBook" >
+    update pc_book
+    <set >
+      <if test="bookName != null" >
+        book_name = #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookImg != null" >
+        book_img = #{bookImg,jdbcType=VARCHAR},
+      </if>
+      <if test="bookAuth != null" >
+        book_auth = #{bookAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="columId != null" >
+        colum_id = #{columId,jdbcType=INTEGER},
+      </if>
+      <if test="bookDesc != null" >
+        book_desc = #{bookDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pachong.dbmapper.PCNovelMapper" >
+  <resultMap id="BaseResultMap" type="com.pachong.model.PCNovel" >
+    <id column="novel_id" property="novelId" jdbcType="INTEGER" />
+    <result column="chapter_id" property="chapterId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.pachong.model.PCNovel" extends="BaseResultMap" >
+    <result column="vovel_detail" property="vovelDetail" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    novel_id, chapter_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    vovel_detail
+  </sql>
+
+
+
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pc_novel
+    where novel_id = #{novelId,jdbcType=INTEGER}
+  </select>
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pc_novel
+    where novel_id = #{novelId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.pachong.model.PCNovel" >
+    insert into pc_novel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="novelId != null" >
+        novel_id,
+      </if>
+      <if test="chapterId != null" >
+        chapter_id,
+      </if>
+      <if test="vovelDetail != null" >
+        vovel_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="novelId != null" >
+        #{novelId,jdbcType=INTEGER},
+      </if>
+      <if test="chapterId != null" >
+        #{chapterId,jdbcType=INTEGER},
+      </if>
+      <if test="vovelDetail != null" >
+        #{vovelDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pachong.model.PCNovel" >
+    update pc_novel
+    <set >
+      <if test="chapterId != null" >
+        chapter_id = #{chapterId,jdbcType=INTEGER},
+      </if>
+      <if test="vovelDetail != null" >
+        vovel_detail = #{vovelDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where novel_id = #{novelId,jdbcType=INTEGER}
+  </update>
+
+
+</mapper>

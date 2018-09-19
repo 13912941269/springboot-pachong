@@ -1,427 +1,577 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-<title>舒服了</title>
-<meta content="t.xs.cn" name="author">
-<meta content="Copyright &#xa9;t.xs.cn 版权所有" name="copyright">
-<meta content="" name="keywords">
-<meta content="" name="description">
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-<meta content="yes" name="apple-mobile-web-app-capable" />
-<meta content="black" name="apple-mobile-web-app-status-bar-style" />
-<meta name="format-detection" content="telephone=no" />
-<meta charset="gb2312">
-<link href="${ctxPath!}/static/mobilesource/images/touch-icon.png" rel="apple-touch-icon-precomposed">
-<script src="${ctxPath!}/static/mobilesource/js/xui-2.js"></script>
-<script src="${ctxPath!}/static/mobilesource/js/RNUI.js"></script>
-<link href="${ctxPath!}/static/mobilesource/css/t.css" rel="stylesheet" type="text/css">
-</head>
-<body class="index">
-<a id="top"></a>
-<header> <!-- 头部 -->
-    <div class="login">
-      <a class="common-btn" href="login.html@sid=c1bq5dsrlq3h9t30uiqa581m31">登录</a>
-      <a class="common-btn1" href="web/login.php@a=register_sj&sid=c1bq5dsrlq3h9t30uiqa581m31">注册</a>
-    </div>
-    <h1 class="logo">
-        <a href="@sid=c1bq5dsrlq3h9t30uiqa581m31" title="小说阅读网触屏版">
-          <img src="web/images/logo-t.png" width="120" height="40">
-        </a>
-    </h1>
-	
-  <nav>
-    <a href="mm.html@sid=c1bq5dsrlq3h9t30uiqa581m31" title="">女频</a> ｜
-    <a href="fy.html@sid=c1bq5dsrlq3h9t30uiqa581m31" title="">男频</a> ｜
-    <a href="web/xy.php@sid=c1bq5dsrlq3h9t30uiqa581m31" title="">校园</a> ｜
-    <a href="class.html@sid=c1bq5dsrlq3h9t30uiqa581m31" title="">分类</a> ｜
-    <a href="top.html@sid=c1bq5dsrlq3h9t30uiqa581m31" title="">排行</a><br>
-    <a href="web/topic.php@sid=c1bq5dsrlq3h9t30uiqa581m31" title="">专题</a> ｜
-    <a href="web/index.php@a=wap_discount_book&sid=c1bq5dsrlq3h9t30uiqa581m31" title="">折扣</a> ｜
-    <a href="wjtj.html@sid=c1bq5dsrlq3h9t30uiqa581m31" title="">全本</a> ｜
-    <a href="ch/201.html@sid=c1bq5dsrlq3h9t30uiqa581m31" title="">短篇</a> ｜
-    <a href="web/index.php@a=pack_book_all&sid=c1bq5dsrlq3h9t30uiqa581m31" title="">书包</a>  </nav>
-</header>
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- 手机网站适应性广告代码 -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-1449491313257558"
-     data-ad-slot="1246518959"
-     data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-<!-- 搜索与阅读记录 -->
-<div class="searchbox">
-<form action="/web/search.php?sid=c1bq5dsrlq3h9t30uiqa581m31" method="get" >
-  <input type="hidden" name="sid" value="c1bq5dsrlq3h9t30uiqa581m31" />
-  <input name="searchconditions" type="hidden" value="1" />
-  <input class="search-input" name="keywords" type="text" value="" />
-  <input class="bton-search" name="search-bton" type="submit" value="" />
-</form>
-</div>
-<div class="zjyd">最近阅读：亲，您最近没有阅读。</div><!-- 公告 -->
-<div id="marqueeid">
-  <a href="web/index.php@a=post&post=46&sid=c1bq5dsrlq3h9t30uiqa581m31">★小说阅读网年度大盘点火热开始</a> <br/>
-  <a href="topic/zp/37/@sid=c1bq5dsrlq3h9t30uiqa581m31">★网络文学经典作品专题</a> </div>
+<!DOCTYPE html>
+<html ng-app="app">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,minimal-ui">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" href="${ctxPath}/mobilesource/css/reset.css">
+        <style type="text/css">
+            html{
+                width:100%;
+                height:100%;
+                overflow:auto;
+            }
+            body{
+                text-align:left;
+                width:100%;
+                overflow:auto;
+                background:#e9dfc7;
+            }
+            .m-read-content{
+                font-size:14px;
+                color:#555;
+                line-height:31px;
+                padding:15px;
+            }
+            .m-read-content h4{
+                font-size:28px;
+                color:#736357;
+                padding-bottom: 5px;
+                border-bottom:1px solid #736357;
+                letter-spacing:2px;
+                margin:0 0 1em 0;
+            }
+            .m-read-content p{
+                text-indent: 2em;
+                margin:0.5em 0;
+                letter-spacing:0px;
+                line-height:24px;
+            }
+            .u-tab{
+                height:34px;
+                margin:10px auto;
+                line-height:34px;
+                border-radius:8px;
+                border:1px solid #858382;
+                font-size:12px;
+                background:#000;
+                opacity:0.9;
+            }
+            .u-tab li{
+                display:inline-block;
+                width:49%;
+                border-right:1px solid #858382;
+                text-align: center;
+                color:#fff;
+            }
+            .u-tab li:nth-child(2){
+                border-right:none;
+            }
+            .m-button-bar{
+                width:70%;
+                max-width:800px;
+                padding:5px;
+                margin:10px auto;
+                
+            }
+            .top-nav,.footer-nav{
+                position:fixed;
+                width:100%;
+                z-index:9999;
+                background:#000;
+            }
+            .top-nav{
+               top:0; 
+               height:50px;
+            }
 
-	<div class="download">
-      <a href="../opendata.readnovel.com/web/app/reader/xs.cn_XS_3.10.13.apk">
-        <img src="web/images/android-ico1.png" width="20" height="26">&nbsp;<b class="green">本站Android客户端下载</b>
-      </a>
-    </div>
-	<div class="download">
-      <a href="web/index.php@a=ios_download&sid=c1bq5dsrlq3h9t30uiqa581m31">
-        <img src="web/images/ios-ico1.png" width="20" height="23">&nbsp;<b class="gray">本站iPhone版可阅VIP章节啦</b>
-        <img src="web/images/hot.gif" alt="热门" width="21" height="16" />
-      </a>
-    </div>
+            .icon-back{
+                position:absolute;
+                width:23px;
+                height:23px;  
+                top:14px;
+                left:10px;
+                background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkJGMkEyQkQxMjdBNDExRTU4NjA2QTJDMjFDQ0I0ODhEIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkJGMkEyQkQyMjdBNDExRTU4NjA2QTJDMjFDQ0I0ODhEIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QkYyQTJCQ0YyN0E0MTFFNTg2MDZBMkMyMUNDQjQ4OEQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QkYyQTJCRDAyN0E0MTFFNTg2MDZBMkMyMUNDQjQ4OEQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4Ia560AAAHWklEQVR42uyd7W9U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);
+                background-size:contain;
+            }
+            .nav-title{
+                position:absolute;
+                top:16px;
+                left:42px;
+                color:#d5d5d5;
+            }
+            .footer-nav{
+                bottom:0;
+                height:70px;
+                opacity:.9;
+            }
+            .footer-nav>div{
+                width:33.33%;
+                text-align:center;
+                float: left;
+                background:none;
+                z-index:10000;
+            }
+            .icon-catalogue{
+                width:18px;
+                height:13px; 
+                margin:17px auto 0;
+                background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADUAAAAoCAYAAABerrI1AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkNFN0E3M0IwMjc4NDExRTU5RkYxQjg1Rjk2QkEyNzBEIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkNFN0E3M0IxMjc4NDExRTU5RkYxQjg1Rjk2QkEyNzBEIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6N0M1ODVCRkYyNzg0MTFFNTlGRjFCODVGOTZCQTI3MEQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6N0M1ODVDMDAyNzg0MTFFNTlGRjFCODVGOTZCQTI3MEQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5uTX6PAAAA0UlEQVR42uyXsQrCMBRFX4p0V39Pv8FJcekHFJe6d+v3NY6CDvUFooQ0AcEllnPhlgz3QU6bBq6ZnvdaRC7qndqoB/VR/ZC5wuxGytLtvXejUJ0uDlGgVZ8Tg6lsaWod1Jh461a9TQyMBX6hWLaSBary5zBWn8kPf8DUr/Rx8hfEPth4kxkIs+tCL4rG/VOLPH5AAQUUUEABBRRQv0O54nf1tcL6dZ3Jh9mpMH/2TkmkJFISKYmURKCAAgoooIACCihKIiWRkkhJpCR+XxJfAgwA/ROhOlYvoWQAAAAASUVORK5CYII=);
+                -webkit-background-size: contain;
+                background-size: contain;
+            }
+            .icon-font{
+                width:20px;
+                height:13px; 
+                margin:17px auto 0;
+                background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAAuCAYAAACViW+zAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjBCRTkzQUQ3Mjc4NzExRTU5RkYxQjg1Rjk2QkEyNzBEIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjBCRTkzQUQ4Mjc4NzExRTU5RkYxQjg1Rjk2QkEyNzBEIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6Q0U3QTczQkEyNzg0MTFFNTlGRjFCODVGOTZCQTI3MEQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MEJFOTNBRDYyNzg3MTFFNTlGRjFCODVGOTZCQTI3MEQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6/hjRDAAAFqklEQVR42uRaaWwVVRi9fTbYqoBoEGIVrDsBA6JRAY0VSkQUl7pQI8YQGjTRaNCgBtdoApho3aoRRJaIC25/VBTBCiqCuKX+QDFqFANRsRCtsRWr9XzxNBnu++6bO/fNe9i+k5y0c2fmzrwz3/22mbKuv9pNChgCLgLHgBvABnCr6Qkor1CHy1ISZjVYG9leC55V6sLsB/4ucynj7T1VmEwKU09VRBHUmx6MNIS5JuF4SQhzIniKY5+MjypVYa4OtKb/PfJxvn3B7eABOY4Rp3wo2FZKzndajCiG+68otaWkLaP23rKcQoWRDHekMj5DGZPjTisVYWYqY+vB5/g3qZPuFcIMYFJn4wnrr50EDujtwlwFVlpjreBL/P9lbkdRyfMKBcmn7gRfAbeAO8G/wS7yT3Ab+AHYBF4I7ptmuJbUfzN4vDXeCN4U2X4AvNE65gtwOG80rYc6ndcdFnD+DnAe+ChCdme+wpzJyjmKLgr1VWTsOAph11A14LoURBkKrgBPTWGu98CLIE5rPktJC73NliiG5vxOgUK3WN3GlEQRnAG+Zjo7+oQKMxCsU8YXOI7XnHAd5wnFQeAb4GBl37fgXeDp4CGS09Jiy+hPxMoud0RNSSduDV1Kt4DzrbEfecHdyvHyBKSLN8galxu4L1CYp5lxRyGO9WbwcbDT00/OtYVg2VKFJdWWxGIyjtxliUMUw/HFjhwoJBqOVMoLuca54COeonT7xDmMUHbtV5d0KU0Ej7TG/gEXxpy3kMdFIfPUBghzneLMJUS/HTCXiPOYMl6bVBgtc30T/C7mPNm/KgUnvA94iTX2Cy0lFO87rNJbmCpwiqdz9XXCUzivLyqZK21g4tadSObTU96q5FSHJxFmBj18FD8wOvhgJY/fowviKDhz9XXuBccy4kg/eWkKofo3a/tAX2HkBzQo44sSODs57illvEER3Ac7mdxtTEGY/UNrpXOi5hXzQ3NBE1LmnbyXasSTafHlocJoTvJVFmRJsI3n7a12xCD6tfnM0j8CJ4UWkUeA3yjinQ2+FXBzkxS/JKH8KI/o5oP+4LHgMWA177+a20O8ZymvKDMxa9yViK1Kue0xkwlXyLmy1M/jw6pO08RcFiPp/PeOmiRt5CorcvWEbgePDrzmbpYld7gsxiXMpeALRXSGl4Evei6XpWw0JcEf7CN9Bn4Ivs4H0pVUmDXghCIK0+xxvT70UeMd+yXx+5RhfDOrbXH68u5rV47SwFsYcWBfFrDJVKP0arRmlw2tKyj4GnwYfJY5TtKaSRUm4wihtigi1LspWcc6zme3AnKFbnGs1yo/ai4bV00BogyM8+xRVBi9ab3ApNer7XI0t7Qmezemm+zm9f3gbQmddhQnJBFGKtiDrTFZa8tS9inLlAJQrnux4/gJSu10T573MD6JMFqmuyKH8wrFLkfUc7Ujhlvbn1Cc4DTF6O/GVGFGgOMczaZCQFtO4xQTzzBM21acD+rjcqBMzNNqYQ+kEJB5P/eon6RssD8jGWb0z9t8cBj4oE9aLZDPNaZ5PtU0oTWxtM9LWqxtyZTPD7ievO9abbIb9JHeQUcmKsxUxVxlDS8vsDDLFV/R32R/2LhSOfdJ4/8VhfRdZoEfmz3fomoRbXBUGG0ZPWMK/yVUGxOzuOW0mGm9nYes531eQCvqXl7lrNrr2QuSNmajZYm/gjco1x7RnfkOdZT9o1lbFBqjGWW0pC56X9czw42DtCv7xvig7VyKP5vsL9gfQvY7Syymw2S/4thUJFEM65tNisO1I4+8EZjnkWj2ixFFLHQUH4b0ordY+6+En+knwvzElDoaCmeb4mK2JUQT78vGHPZeWhLOL3M/D55k/ntptyOy724l0WyMFpE1jO3NrEyLDVk6E1lIrvU4fgxFGkv/UsWSQnxHK5dhC/3QGqe/dHy1+a8AAwCKR08FSRIHxQAAAABJRU5ErkJggg==);
+                -webkit-background-size: contain;
+                background-size: contain;
+            }
+            .icon-fonts{
+                width:20px;
+                height:13px; 
+                margin:17px auto 0;
+                background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEwAAAA0CAYAAAAg5t6HAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkNFN0E3M0I4Mjc4NDExRTU5RkYxQjg1Rjk2QkEyNzBEIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkNFN0E3M0I5Mjc4NDExRTU5RkYxQjg1Rjk2QkEyNzBEIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6Q0U3QTczQjYyNzg0MTFFNTlGRjFCODVGOTZCQTI3MEQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6Q0U3QTczQjcyNzg0MTFFNTlGRjFCODVGOTZCQTI3MEQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7nhaYNAAANmElEQVR42uxbC1RVZRb+QFFQuPJMQBBQUG+i+ABURK1Gzcqkxnwwo65aY5Zm76aaWdOsmnFmmlY1q4fJNLPKyjJXWZY91JyafKMCCir4IJWXIIqiIiiv2fvc/xz+/9yrl3u5usZx9nJ7/nvO/zr77H/vb+//xwueJX/iUcRxxDHER4kPE28lPof/AfLyYF9W4mnEFgfPzhB/Qlx4rQuskwc16/5LCIupK3F/4lziC9eywDq727D1WUlNX0QaXQK4PCwclvcnY2J8ECIPnULFnK+wLrdS07DuxGnUbs1/xdJ60b123h4af6Be+ICENTAUMV07wYevH03BJKnegGt9SXp74EuF0qUXl4N94WMN1Yy9Qf2DER3oa2hylKh//QpMeEWNnhqB/o68yNMjFM0a9X+BCZppRZKjCqb7I69bgdHyGk6XLly+Mx43xAUi3FE9vj+ZnuseU7S7LjVsnF5YONyxdun0sPp83HUnMNKSCLpEcrlnd3QZ11sDrpeWLD3neuJnJLUPv940zLBFz46ElWHE5Srz82dGKkIddb0JzHjhewbYL8fGFjSZ701T612TAnMX6afqwiYPGBkVgDBzhUWbsfaFMbhDvsf1ZlgRsaIQx7g9LctUQv7bPYzg40Xwz9iwpwjbfKW4uZm4jvgUcZlIDhwU966YwMbqhQeGYrD5IYVE5X/YjKLZiRhCIVIv+dmDQ5EkBKb3s90DQuIxODwbqnttJ/GzRTCD7NHifinxt8QHPL0ko4k1gx1tge/oKC2oVmj5PuyWrzJxfW4nfobTy0Z3xPEQL6Ti48Qj2iEsZ+81jx267sw8pWEZeuE3ozDQx1vt43wj6l/erqk4Xt2Bg0+mor6bD/z051yf2y1YixypvzfdEBY7kNlmITEenG5FX2sIwujDhAZ0gZ9vZ8J+Ykk2t6L53EXUn6jHmQM1OP79URzNysNhutcsumCtm0+8lLjYblw3nMRLWoFali/EfeHdESxX+OIgcu5aiX/rv1dNxU0ZCSpQPXYONVGL8W5La1v0RLasxQVhDaHLLOOre8Nr0VgkzklEcoS/Op/2EAtw2V5kP7YeeReajXlwGuot4vKOLEnDs9HkoszC4vd/dbu6DP+2A/mtpk74pbi9Ox6ThNVHFtbwcFgOzEMmQZaJ7giLyZ+0kGzrTQVzMY2iEn01cA5vakdtWLpemDfEHkoUnkDJhlLN+2gfjv/7sQQ1RSdRYq5rap/uwhyMl5gQi5DvM/ELeskIT3jYhCBErZ+Ju7v7GInV3sQ3umvDYok1+ECezy81EgnmCh/uVbSL8/gTuLBsD3b/aZw2eBsuofbcD3nUeu6XNCeWluURJ9o1SkAFxPSA74q7MNXSVUtMKkT2qXbNT9j7bTFKth9DzdFaNBAu1BSdhdE/BN3v6IvIOQ68eB8SftYkpM5erc2fifN5+9zRsMkSsh/UyUtNb5+5gLrXdipGUh8QfJ+en1d8O7Xnfhz13545fDAZtwT52rK8OjW1oHlxLn6IehPv8At/tA/l/EF0YTHVNaKZM8B/JNjT/218/GmRPawhgJ0sh3HEIa4KrIvQMM3AZvSzx17rDmMPT0b8LCFt4bR0iT5Jel5g526pH+5P12DSIJ/LaFeysCu4vS/C0qPV2JW934J1+GzhOuRKhvuyxE5nxhfYyKl0UxjX5eHhygrq56rADKN8fxJiQv3Qw2TsW1/KRr506zvTFfy8FVDsP/czN0nJ0Ka1Zw5PpGCo2b0vzceWf+xSbCVv8WURPy+88FPMVH6G+BXiI7rQyEPuskPm0cq8Yl0VmI6G8aske+3KP44jO45pGsVUSxPTttPEtZbL/LzguL2Nmqv2N/oS2uUt8BHjOK+0qLYvLjS4/qkftB0pA93Q2G8QHyI+J0MWKjcTc6SxUr+3+pAKHYQtk8O9SFcExrGZ5q4HhcF/aE/0NVdYWqAY+82mx1v0wnt77JE/98f9ip/BIhY0k7FUeX9g5X7sLD6NCtIOTWM3l+Hg6QYj2C8jgWxsx3sdE0gIbNPM0CfYT7GPga4I7DYDXZKRJsCqtDnVgLNLcrUA1s7Ym38vzsFhrq/gGurvadX432aeAAmAQaRmZ6rPo5EM+rb4LCzvk4W3ntuAr97Jxx6p+kYnnjaAmKHCDBGI21Bqk7pf6tfZZi/1n+2FFX76UiBD6E2ueJC5wtfFKJCM7FF6uXrTy56nCbI9ieF631D9Xw5UbRX3S/1ni35iqH43bmcaaqXAYMbyYLiwaAv2K3b8WeRQe18BgUKFhwsSqyRM1hbFqznJ57VXYIahnT8McWY3Tkui5aVtivfjl335ch3+lepn3oiRsqZyvw8NRxxFCcVScvJ7k+BZ6K+KJcu7UFYdk+nTIc6j57/VTUh76O5+6Pl8OtLNK8ddgRlG+N5B9sg+rwrFBdWuHTLh+tyOQhoF+BKITJIENtosMElwhziDRPwVCYfB8BThxfiFnW6u9A9Gt9v6ImJMFCLHRCMhrJumfR5JIPIX1OBDSgQsg29oc606/XO3AiXaTe/mI98sMO6fxxHetgdnI3Rv68AO8fK5lfgmR88j/dF1ZC8EkTMJIm9n6eWPHhE2DiRttlypjOsEw9iPwGAvB5mNJbdi6pJbPZQppX88zrRV2CSNX+hAWPzhZgr7ZGQrFpDJIFvYhz5EbIgJJ16NFLVFBJ5a7DUxDolXI1/O49B4W0XE0JuEYxERg5xZvVeknW2p8LEYSIH8SFpage6MyRHCJ0XYMdPavg3mSwnMaPxoMvo6CnCvBPE4PN6ftxppYnY6a02ZCn992X15DyaRRsW7MgbFlY3lZ1FTfApVOytR+V4Bfio8ibqOCsxw+wQBknAVaRYZf0cCI+0aLGv9+kxMsYaoGRDJe7eWnEHVvhM4tr8GJw/UoJYEdLaoBnWlZ9Dg6SWZqH9FiqeCrKH2k7rva6wgdF/WUeHcNxjR79yO6fK9ASQEHlfk1fxJUIm0LPfIqfEPp2CMI2ERqD39cSFyX9mOQsZoV+KDOsIePzOC3FQkmS19ZR1q3t/TcWFpoVIBSrk/c86cx5VujSeh9dM9dmoEepBxH2LO9JIdyo5bgqWPfIc8J8JqhG2HKNuI/YLakLyrGsaAL1rYk84TYtVsI9PnB5Df0uqZr8X9cH/zh6rwgMelmHGTiA85lW1AkMdTkUheUcnFrTqAHdPbvKtOVbDtN/L1JGznbGv1SIQ+AoNf3mniYwxh7gqs7axXKhLk3R5hMJv+shV7pVuv0QRKXYYQtq21R7nM/c1NQrq8+8TjPpGChN9vNGBFnP4sOVxdihRONT6wRolfOcWziuZV4mQa46UP1NvdJWl4Cgpf7Iz95jLsl4xmpTvCEmid21VymfvbUqbEg47GNw6uRAW0ZT+ZjtSiigNy8bOC+n7dmbCEdsWK4B+3xNjvrbZHYEP0qJzwUKg518309zwF2W/o4Io0sgpZefYRA48/qY8BTn11gOqrZhE4yyCf4bjYDu1mbztX//27NAxwBcPJArtFLzyWYq9dZWdRTR6oQsoKdGiLn9pni4AZ3C9ho2pznUeS1Xk0taCVlqAilCgLgr3bPBOnudOIg4i99OQjcQhxCjHvkM/RKyfdgIAnU3GzO7AiTE+bkLR9bnZw1uvTIrsdIU/QNh3zkZfbTR9qvPyQ50Hz2SAtORC+qk6QtD+YYkNqF0+B+yFx6+eSNjXo2mkmMvTBH2cgg5xbt0sKhzS6qW0DhT9Aq7cZqJLEB9ipPRnWF7cpcd02DwnMEDz3z+PID3kev1YPFGNTqZKs1OiFdEzkU0EO+rcTFsWZPhT/Dl87A7PkjWgOkcx1CRPKEU6AvCSNxOAMBwd7fyxBYVWdsRQqRHq3wyRy69oy5/43ltoH26YzZVo+jcMb+R7vXC/PQObm2bidMFw874bry5QTn6N6IfC50Rjwr0xMLFmAebzLLR8AbGjChdd34gfz2OlRyhH5WH1JBulZSB4otoeSlNPozRxlOf7oYfDM/WVy4Y0c5I+PVTdZeD5S2gcU6px/exc2PTRMtT2c7UjrBSuzJIiLXTujy+UOkNRewLl7v8Yq8rbnH09RnxFAjiWHdETKnuSzhhle5txFNJm3wg6fRuXqQzgueaEcT0qLU8oCfePLg6ji8UwovvXMBfU0I+89kk3NdoaffZ0Ia0s5CpOX4n0CvlW7qnC2yhR1ENy4MbxtQ5eXfAoLjDclTuhf75ti5MlA9flNikZtxZUhY2eJx5OPe/J8eF7i5wljqRKyn78Gn5Y58K5OshVNW8tRlLESy0Z/gG/EUQWNFueq78cAmuJWOQqJ85Iw2Cw5KKbgNvCz/SjZVmHbV9Rtsz5p+Y+zOpw8tP05jdEjx4vTrYjZewKn3s1XwPEy4mEwHRDhY6N3JiCWYEIkeVVLYFf4+3RCZ7ZNtGoayMvWHjyFagLeFRQHH5Xssau0QtbYB4HL5pY+kzXhClCaDAkcEMOGLFEeK3L5HSU2BatFwnS8k7ocPbwuB7E7YTsYa8ZgbGyXe9p2OaBS4THjHMCBzwXrxDtI+SJREQXXDwbyOOthO2VYKj5GtYAO5k0RhjHr9PG9LoH+40TOnCsfx9WnnmIO1WIOzg6XJIj6seKFORXEsKEBbSemK0Rf7PXc/nPq/wgwAHlvUwHlIWIoAAAAAElFTkSuQmCC);
+                -webkit-background-size: contain;
+                background-size: contain;
+            }
+            .icon-trigger{
+                width:16px;
+                height:16px; 
+                margin:12px auto 0;
+                background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkU2OUYzRUEwMjc4NzExRTU5RkYxQjg1Rjk2QkEyNzBEIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjhBMzA2RjA2Mjc4QTExRTU5RkYxQjg1Rjk2QkEyNzBEIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RTY5RjNFOUUyNzg3MTFFNTlGRjFCODVGOTZCQTI3MEQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RTY5RjNFOUYyNzg3MTFFNTlGRjFCODVGOTZCQTI3MEQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4v5YACAAAC/UlEQVR42tSaXYhNURTH97kzRnJ9ZTQzPh7IMEr5yshHEwkRkSeSjweEiMjDePTkhcKLPCApUV54GxTKcDM0JfL9QE0UGdcdEmb7L3edOq5zzz1nn332Pvdfv5e5Z9Zd666711577etIKYUGjQILwRwwDOwDfcKAamP873CwBawDrcABP8ACU87/FWUgIk3gKMjL/7VfwV4sojxcCw6AL9JfD0DGdABhv0KTwAUwO+CZvaBfGFaYAJaDyyAb8Mwt0CksKFPh9W3gWgXnSSeFJTkBZXQrOM3VJUi9oJErUGoysBKcCuE86YYt58sF0MILtiakjTvCojI+i/o876Zh9ThNARysUCr99NpmAN5FTAvxBRgS0QZlK5+GDLQrOC9sOu/NADVm70LU+9RmYJOi8yLigk8sgPUxbEy0HUATH0RUNdV2AG0hd9xyarMdwNyYNhaDOpsBTI5pYwRYYTMAHYtwh80ARmqws1ShBdEWwGAdGyI4HrMYKAegawFSMdhlo5XIK/ZAfvoO5oFukxn4oNHeID5DjzUZwCvNNsn5DjDOVADPErA7BdwF0xP2v4YCyCVknDJwjxe2k8AHT4O0VTSeawD9Mll1glZN48T5IMc+N7p/7JJm1AFWg4ERna4Da8F1j62cdzZKY5RZBtbcEuYzuAlugyfgOSjwyS7LJ8QJYJoojuuX+RycLnqPlPXgLZfBalCB11iveyL7CM6K6tEZURxp/jNWGc2pzFbBp98M3peOVXrA4Sr49I+4zpdmgDSA94UZKXX+ITeNP8sFIDg9XWBoypyni0O6THzqN1bx6iXYCH6nyHnyZXOp8+UCIF0Fe1LiPH1FdoMr/q8G74DbwS9pT/TeO+Nes64JuFpNUl+5fdByT9wMHhl0vhu06L7opobqEPiWoON9oJ0v1bXf1LuMAcdAQbPjJ6g9juqPE+PXKvVcbjeAmQqHFsmb5iVwzu1tVKYSOkpdA1jEU246To4XxZ/gZLlUU5v8CbzhI+x9bqV74r7xHwEGAPDRVwnecW5KAAAAAElFTkSuQmCC);
+                -webkit-background-size: contain;
+                background-size: contain;
+            }
+            .icon-daytime{
+                width:19px;
+                height:18px; 
+                margin:12px auto 0;
+                background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADkAAAA5CAYAAACMGIOFAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkNFN0E3M0I0Mjc4NDExRTU5RkYxQjg1Rjk2QkEyNzBEIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkNFN0E3M0I1Mjc4NDExRTU5RkYxQjg1Rjk2QkEyNzBEIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6Q0U3QTczQjIyNzg0MTFFNTlGRjFCODVGOTZCQTI3MEQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6Q0U3QTczQjMyNzg0MTFFNTlGRjFCODVGOTZCQTI3MEQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6o6V5PAAADu0lEQVR42uyaTUgVURTHm/cigiS1LEitoHoqbgtcZAStngtDoYxa9rFsYYuWfUBhuSjCneiylkH2oavoEZlC4aYsM9toakWLnpsWyfQfOMJrOvdjZs6bedQc+OF7d9499/y9M/fj3HFc110Xo3WAYfp8BozG0agTs8hFsIM+L4H6f1GkvzEnjkYz6/4DS0WmIlORSlsq+bxcKSI3gkHwBlwSGA3PkrjPNE+GnhXAZYprkOLUjOmYQjT0un/aMHAMdcqNQ3GUWq+ujqknt/i+nwZDcc1vih4cojh0cQbqyQaw4P5tSfQo14OezYNGXV0b5zly5Le+mEX2KQTmTHVtl3U58BQ0lpQtgJ2Gei2gE7SDVrANVIMf4Bt4B56Dh+C9wdc80/4RMGteTNr/J/09+lhzW3WBCTeYTVA91WPwKGgPBrldS9kFBkA/qGOuN4FnbjTz6jczvuuoXa/93UHilnxmjoMVV8ZWyJ9IbFICz4FVV9ZWyW9FiDwGfmmCnQIXQBuoBxvobxuVT2nqen57khbpPYNFRYBzoNtiPnXod3MKP0VqJxGRjmaQGQXVAf1VUz3VYOQkIbJLEdADkA3pM0v1OetKQuQ4E8gHUBXxEfDqzzC+x+MW2aL4b+eFRuu8wn9LGH9hN82dTNlrMCa02xgjf347GmdmoJ0puyu8rbrHlB2MU2QrUzYuLLJg2a6VyA7KbLsMi3Tdb9sVuwRJ+2TZrjF+b+4pTd2rkk/1hky4Z+vBapkz7lzW3Ri/ze3KpTqKTNlmYYG1TNlKmJRJpiSDxpkqq/aVKdsrLHIPU/ZFkwFUxu/dYk8M3c3ZNNjnKzsEXgmKPKxo12/G+MOOri+YslPCPXnSst2yTSEjTNkBkBcSmCd/Nu1aDF/hl15cDmdGYO26SXrtGuUs5AZT1kQrn2xIn1la6TQx1/rDT0TR9pMFxUL6fogeraJ6nBWS2k+uZQZUyauPtOO38dNNv1cltZqTzvH0WOZ49oMaqlND321yPCfSbF2ad5UXufaMFiIKLER9BqOK9Ea4m2CZEk61mrOQyYDiJjUpzFpqb5nad8olkjsfvG6RC7oIRsBsSY62SN9H6Lopd3MtyvmorcCM4gD0dkxnk7eiHARHEWg84RWkUXPinZEQeSXsCa8wOYXQqxIi31aAQN3R/rTEAv1lqCNs3taSTqoEmclmqf2FIFlCm3cGvBeBzoOt4I7vraqgJvW+awPF9B0MgJ9RRZYz+5a+75qKTEWmIstuFfm+q7RJve8ayH4LMACaxEJEaXs23AAAAABJRU5ErkJggg==);
+                -webkit-background-size: contain;
+                background-size: contain;
+            }
+            .daytime{
+                display:none;
+            }
+            .trigger,.font,.catalogue{
+                margin-top: 5px;
+                font-size: 12px;
+                font-weight: 700;
+                color:#fff;
+            }
+            .nav-pannel-bk,.nav-pannel{
+                position:fixed;
+                bottom:70px;
+                height:135px;
+                width:100%;
+            }
+            .nav-pannel-bk{
+                background:#000;
+                opacity:0.9;
+                z-index:10001;
+            }
+            .nav-pannel{
+                background:none;
+                color:#fff;
+                z-index:10001;
+            }
+            .child-mod{
+                padding:5px 10px;
+                margin:15px;
+            }
+            .child-mod span{
+                display:inline-block;
+                padding-right:20px;
+                padding-left:10px;
+            }
+            .font-size-button{
+                background:none;
+                border:1px solid #8c8c8c;
+                color:#fff;
+                border-radius:16px;
+                padding:5px 40px ;
+            }
+            .child-mod button:nth-child(2){
+                margin-right:10px;
+            }
+            .bk-container{
+                position:relative;
+                width:30px;
+                height:30px;
+                border-radius:50%;
+                background:#F7EEE5;
+                display:inline-block;
+                vertical-align:middle;
+                margin-right:8px;
+            }
+            .bk-container-current{
+                position:absolute;
+                width:32px;
+                height:32px;
+                border-radius:50%;
+                border:1px #ff7800 solid;
+                display:block;
+                top:-2px;
+                left:-2px;
+            }
+            .bk-container:nth-child(3){
+                background:#E9DFC7;
+            }
+            .bk-container:nth-child(4){
+                background:#A4A4A4;
+            }
+            .bk-container:nth-child(5){
+                background:#CDEFCE;
+            }
+            .bk-container:nth-child(6){
+                background:#283548;
+            }
+            .bk-container:nth-child(7){
+                background:#0F1410;
+            }
+            .artical-action-mid{
+                position:fixed;
+                top:30%;
+                z-index:10002;
+                width:100%;
+                height:40%;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root" class="container">
+            
+            <div class="m-artical-action">
+                <div class="artical-action-mid" id="action_mid"></div>
+            </div>
+            
+            <div id="top-nav" class="top-nav" style="display:none">
+                <div class="icon-back"></div>
+                <div class="nav-title">杩斿洖涔︽灦</div>
+            </div>
+            <div id="fition_chapter_title"></div>
+            <div id="fition_container" class="m-read-content">
+            </div>
+                
+            <div class="m-button-bar">
+                <ul class="u-tab">
+                    <li id="prev_button">涓婁竴绔�</li>
+                    <li id="next_button">涓嬩竴绔�</li>
+                </ul>
+            </div>
+            <div></div>
+            <div id="footer-nav" class="footer-nav" style="display:none">
+                <div class="foot-left">
+                    <div class="icon-catalogue"></div>
+                    <div class="catalogue">鐩綍</div>
+                </div>
+                <div class="foot-content">
+                    <div class="icon-font"></div>
+                    <div class="font">瀛椾綋</div>
+                </div>
+                <div class="foot-right">
+                     <div class="night">
+                        <div class="icon-trigger"></div>
+                        <div class="trigger">澶滈棿</div>
+                    </div>
+                    <div class="daytime">
+                        <div class="icon-daytime"></div>
+                        <div class="trigger">鐧藉ぉ</div>    
+                    </div>
+                </div>
+            </div>
+            <div class="nav-pannel-bk font-container" style="display:none"></div>
+            <div class="nav-pannel font-container" style="display:none">
+                <div class="child-mod">
+                    <span>瀛楀彿</span>
+                    <button id="large-font" class="font-size-button">澶�</button>
+                    <button id="small-font" class="font-size-button">灏�</button>
+                </div>
+                <div class="child-mod">
+                    <span>鑳屾櫙</span>
+                    <div class="bk-container">
+                        <div class="bk-container-current"></div>
+                    </div>
+                    <div class="bk-container">
+                        <div class="bk-container-current"></div>
+                    </div>
+                    <div class="bk-container">
+                        <div class="bk-container-current"></div>
+                    </div>
+                    <div class="bk-container">
+                        <div class="bk-container-current"></div>
+                    </div>
+                    <div class="bk-container">
+                        <div class="bk-container-current"></div>
+                    </div>
+                    <div class="bk-container">
+                        <div class="bk-container-current"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="${ctxPath}/mobilesource/lib/zepto.min.js"></script>
+        <script>
+            window.jQuery = $;
+        </script>
+        <script src="${ctxPath}/mobilesource/js/jquery.base64.js"></script>
+        <script src="${ctxPath}/mobilesource/js/jquery.jsonp.js"></script>
 
-<!-- 轮播模块 -->
-<div class="module indexPhoto"> 
-  <div style="overflow: hidden;" class="gallery clearfix">
-    <ul style="width:8640px;">
-      <li onclick="javascript:window.location.href='partlist/209838/default.htm';" >
-        <dl>
-          <dt>《蛇王诅咒》</dt>
-          <dd class="pic"><a href="partlist/209838/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="蛇王诅咒" target="_blank"> <img src="http://img.readnovel.com/incoming/book/0/9838/209838_ot.jpg" alt="蛇王诅咒"> </a></dd>
-          <dd class="text">点击：<span>9379504</span></dd>
-          <dd class="info">简介：他妈的谁在她肚子里种下三个蛋？身为第一废物的她收拾不了孩子他爹，对付几个小坏蛋应该是没问题的，可是为何这堕胎药一次两次就是没有疗效？当绝色宝宝破壳而出蹲在热水锅里可怜兮兮的望着她，“妈咪，妈咪你又想弄死我们？”顾蔓一个跟头栽倒在地，捂着血流成河的脑袋赶紧道：“妈咪热水给你们洗白白，怎么样，水温合适么？”话未说完，蓝色头发宝宝小手一指，顾蔓整个人瞬间被冻成了冰块，嚣张道：“弟弟放心，以后哥哥替你弄死她！”我靠！神呀，她顾蔓堂堂一个博士高学历穿越人才，还有相府三小姐这个尊贵无比的身份，她桀骜不羁的人生看来是要被毁了！！！【古代版已大结局！】</dd>
-        </dl>
-	  </li>
-		      <li onclick="javascript:window.location.href='partlist/215440/default.htm';" >
-        <dl>
-          <dt>《市长大人好闷骚》</dt>
-          <dd class="pic"><a href="partlist/215440/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="市长大人好闷骚" target="_blank"> <img src="http://img.readnovel.com/incoming/book/0/5440/215440_gx.jpg" alt="市长大人好闷骚"> </a></dd>
-          <dd class="text">点击：<span>9687102</span></dd>
-          <dd class="info">简介：【宠文】欧辰枫身为堂堂A市的市长，曾是被军界、政界、商界争抢的宠儿，如今却被一个丫头扑倒：“躺好，摆好姿势，不许乱动。”他不能接受这个事实。可他还没来得及报复，这丫头却说：“市长大叔，结婚不，我怀孕了。”“你要是不跟我结婚，我就告你行为不检。”***欧辰枫看完报导，皱眉闷声道：“当初你饥渴的把我扑倒，占我便宜，吃我豆腐，现在不会拍拍屁股走人吧？”安好翘着二郎腿问：“不怕我拖累你？”某市长自信无比：“我的事业不用女人来成全，安心做你的市长夫人。***一个月黑风高的晚上，“老婆，今天会后，妇联主席问我夫妻生活和谐不。”“你怎么回答？”“我说回去再试试，然后打份报告具体说明。”***每一个黑道萝莉的梦中，都有个绅士情人。绅士情人有三好，温柔体贴技术好。可为什么现实中，她要嫁的人却是个闷骚大叔。别和她说大叔多么好，高龄蛮横还易推倒！</dd>
-        </dl>
-	</li>
-		      <li onclick="javascript:window.location.href='partlist/200891/default.htm';" >
-        <dl>
-          <dt>《武魂弑天》</dt>
-          <dd class="pic"><a href="partlist/200891/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="武魂弑天" target="_blank"> <img src="http://img.readnovel.com/incoming/book/0/891/200891_js.jpg" alt="武魂弑天"> </a></dd>
-          <dd class="text">点击：<span>7832596</span></dd>
-          <dd class="info">简介：比天赋？纵你天资卓越，在小爷面前你会自卑到吐血。拼至宝？爷我身怀至宝无数，每一件都能让强者疯狂。 什么，拼女人？爷我身边那几位每一位都有倾国倾城的容颜！一位被家族流放的少年，机缘巧合之下发现一个惊天秘密，人生就此改变！五彩岩浆焚烧天地万物，天陨重剑横扫世间诸强，逆命天书巧夺造化天功。携带无数至宝踏上征伐之路，在天地神王陨落的年代，打出一个全新纪元！让世界为之颤抖，让天地匍匐在脚下。PS:12月更新周活动~~本月内，周五、周六周日三天每天加更一章</dd>
-        </dl>
-	</li>
-		      <li onclick="javascript:window.location.href='partlist/216558/default.htm';" >
-        <dl>
-          <dt>《风流和尚猎艳记》</dt>
-          <dd class="pic"><a href="partlist/216558/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="风流和尚猎艳记" target="_blank"> <img src="http://img.readnovel.com/incoming/book/0/6558/216558_bh.jpg" alt="风流和尚猎艳记"> </a></dd>
-          <dd class="text">点击：<span>4524516</span></dd>
-          <dd class="info">简介：【12月更新周活动~~为了回馈读者，响应网站的更新周活动，因此每周末的周五、周六、周日三天，我会在原来基础上加更一章！！】
-【火热连载，都市爽文】【 老衲法号：破戒！】谁说和尚不能风流？谁说和尚不能杯抱美人？谁说和尚不能成为世界首富？？我有神功【玉女心经】：想治疗？先宽衣！！！我有神功【金钟罩体】：抗打抗骂抗枪炮！！狙杀米国总统，敲诈曰本政府，偷盗南飞金库，轰炸映度阿三！啥？你说老衲是流氓？罪犯？无赖？NO~~老衲是菠萝蜜国的正统太子！什么富二代，官二代，权二代，遇见老衲，他就是二逼青年的存在！老衲我射遍天下无敌手~~~我射~~我射射射~~~！！【 无限级 YY 看后别撸喔！】读者讨论群：[94951080]****121</dd>
-        </dl>
-	</li>
-						    </ul>
-  </div>
-  <div class="ctrls">
-    <div class="imgPageBtn imgPageBtn-l"></div>
-    <ul>
-						<li class="current"></li>
-								<li class=""></li>
-								<li class=""></li>
-								<li class=""></li>
-																		    </ul>
-    <div class="imgPageBtn" id="bt"></div>
-  </div>
-</div>
-
-<div class="module">
-  <ul class="list">
-							<li class="li2"><a href="partlist/181281/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="霸气宝宝：这个爹地我要了">霸气宝宝：这个爹地我要了		
-		</a></li>
-				<li ><a href="partlist/213972/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="错上蛇王">错上蛇王:傲骄蛇宝腹黑妈咪		
-		</a></li>
-				<li class="li2"><a href="partlist/207680/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="总裁敢动我试试">身陷囹圄:总裁，敢动我试试		
-		</a></li>
-				<li ><a href="partlist/212999/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="阴阳猎鬼师">祖传玉佩蕴玄机:阴阳猎鬼师		
-		</a></li>
-				<li class="li2"><a href="partlist/202013/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="虚无神在都市">封印终极神力:虚无神在都市		
-		</a></li>
-	  </ul>
-</div>
-<!-- baidu ads -->
-<script type="text/javascript" src="../cbjs.baidu.com/js/m.js"></script>
-<script type="text/javascript" src="../cbjs.baidu.com/js/mm.js"></script>
-
-<script type="text/javascript">
-function $_(id) {
-	return document.getElementById(id);
-}
-
-function is_pc(){
-	var ua = navigator.userAgent.toLowerCase().match(/windows nt/);
-	if( ua == null){
-		return false;
-	}else {
-		return true;
-	}
-}
-var is_pc = is_pc();
-</script><script type="text/javascript">
-if( is_pc){
-	BAIDU_CLB_fillSlot("691216");
-}
-</script>
-<div class="module"><!-- 热书强推 -->
-  <h2 class="tit-news"><span>热书强推</span></h2>
-  <ul class="list">
-    <li class="li2"><a href="partlist/208257/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[宅斗] 设计:重生之嫡女上位">[宅斗] 设计:重生之嫡女上位 </a></li>
-    <li ><a href="partlist/217227/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[豪门] 闷骚老大惹不起"><font color="red">[豪门] 闷骚老大惹不起</font><img src="web/images/hot.gif@sid=c1bq5dsrlq3h9t30uiqa581m31" alt="热门" width="21" height="16" /> </a></li>
-    <li class="li2"><a href="partlist/226051/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[架空] 逼迫:下堂王妃不好欺">[架空] 逼迫:下堂王妃不好欺 </a></li>
-    <li ><a href="partlist/229903/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[宫斗] 步步生香，嫡女医妃">[宫斗] 步步生香，嫡女医妃 </a></li>
-    <li class="li2"><a href="partlist/203428/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="豪门：总裁,娶我妈咪请排队">豪门：总裁,娶我妈咪请排队 </a></li>
-    <li ><a href="partlist/169080/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[热血] 充后宫:都市风流邪少">[热血] 充后宫:都市风流邪少 </a></li>
-    <li class="li2"><a href="partlist/190109/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[网游] 秒杀:网游之巅峰召唤">[网游] 秒杀:网游之巅峰召唤 </a></li>
-    <li ><a href="partlist/232270/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[纯爱] 卖身:恶魔少爷萝莉控">[纯爱] 卖身:恶魔少爷萝莉控 </a></li>
-  </ul>
-</div>
-
-<div class="module"> <!-- 新书品尝 -->
-  <h2 class="tit-news"><span>新书品尝</span></h2>
-  <ul class="list">
-    <li ><a href="partlist/230370/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[高干] 落魄:市长复婚请排队">[高干] 落魄:市长复婚请排队 </a></li>
-    <li class="li2"><a href="partlist/230528/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[架空] 男科医女一品傲妃"><font color="red">[架空] 男科医女一品傲妃</font><img src="web/images/hot.gif@sid=c1bq5dsrlq3h9t30uiqa581m31" alt="热门" width="21" height="16" /> </a></li>
-    <li ><a href="partlist/229889/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[高干] 骗婚:腹黑警官嫁不得">[高干] 骗婚:腹黑警官嫁不得 </a></li>
-    <li class="li2"><a href="partlist/229822/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[高干] 沉溺:战少的隐婚萌妻">[高干] 沉溺:战少的隐婚萌妻 </a></li>
-    <li ><a href="partlist/231509/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[玄幻] 妃常彪悍:娘亲,揍他">[玄幻] 妃常彪悍:娘亲,揍他 </a></li>
-    <li class="li2"><a href="partlist/227103/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[乡村] 留守乡艳:狂野美人沟">[乡村] 留守乡艳:狂野美人沟 </a></li>
-    <li ><a href="partlist/113757/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[都市] 神秘石:都市艳遇人生">[都市] 神秘石:都市艳遇人生 </a></li>
-    <li class="li2"><a href="partlist/229015/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[成长] 重生之公主要造反">[成长] 重生之公主要造反 </a></li>
-  </ul>
-</div>
-<div id="ads1" style="position:relative; width:320px; height:48px;">
-</div>
-<script type="text/javascript" src="../mobads.baidu.com/jssdk/js_api.js"></script>
-    <style>
-      /*
-      * css class for Baidu ad
-      */
-      ._bdsTitle{color:blue; text-decoration: underline; margin-left: 10px;}
-      ._bdsDesc{color:blue; text-decoration: underline; margin-left: 25px;}
-      ._bdsImg{height:38px;}
-      ._bdsIcon{width:22px;}
-    </style>
-    <script type="text/javascript">
-      function baidu_ads_show(){
-        /*
-         * JS SDK Demo 2.0
-         * 
-         * 参数详情请参看<SDK_PATH>/js_manual.doc
-         * <SDK_PATH>是SDK的接解压路径
-         * 
-         */
-        _$BDS({
-          cid:'ads1',       //[必选]，容器ID
-          appsid:'bed4f744',          //[必选]
-          appsec:'bed4f744',          //[必选]，计费名
-          pack: '',                //App标识；Android中为App包名，iOS中为Bundle Identifier
-          // bfn: adBuilders[adType],//UI构造函数， 默认使用内置函数
-          w:320,                   //容器宽度，设置<meta name="viewport" />后，大部分浏览器具有320px宽度的窗口
-          h:48,                    //容器高度，参考值：h = w * 0.15
-          os: 0,                   //设备操作系统类型，0:auto，1:Android，2:iOS
-          sn:'',                   //设备串号，手机为IMEI，平板可传MAC
-          isp:'',                  //移动通信运营商编号
-          imsi:'',                 //IMSI
-          AP:false,
-          //cell:[[61474, 6318, 0], [61475, 6319, 0]],        //基站定位信息
-          //gps:[1330582230666, 127.12345, 31.12345],          //GPS定位信息
-          //wifi:[['c417fe076485', 45], ['17fe0c448765', 65]], //WIFI定位信息
-          listener: DEFAULT_LISTENER
-        });
-      }
-      
-      //推广构造器
-      var adType = 2; //推广类型,1:文本类型，2：图片类型
-      
-      var adBuilders = {
-        //text类型推广构造器
-        1: function(ad){
-          //ad有4个属性：title、desc、img、icon
-          return ad.title + '<br>' + ad.desc;
-        },
-      
-        //image类型推广构造器
-        2: function(ad){
-          //ad有2个属性：img、icon， title和desc为空
-          return ad.img;
-        }
-      }
-      
-      var TAG = '[Dev] JsSdk';
-      var DEFAULT_LISTENER = {
-        onAdShow: function(){//推广成功展示事件
-          console.log(TAG, 'onAdShow');
-        },
-        onAdClick: function(){//推广被点击事件
-          console.log(TAG, 'onAdClick');
-        },
-        onAdFailed: function(){//推广无法继续展示；onReceiveFail可能继续展示推广
-          console.log(TAG, 'onAdFailed');
-        },
-        onAdSwitch: function(){//推广轮转事件
-          console.log(TAG, 'onAdSwitch');
-        },
-        onReceiveSuccess: function(){//从服务器成功接收到推广的事件
-          console.log(TAG, 'onReceiveSuccess');
-        },
-        onReceiveFail: function(reason){//从服务器接收推广失败的事件，网络异常等可能触发该事件
-          console.log(TAG, 'onReceiveFail', reason);
-        }
-      }
-    if( !is_pc){
-      // Demo Entry
-	  baidu_ads_show();  
-    }
-      //setTimeout(demo, 4000);
-    </script>
-<script type="text/javascript">
-	if( is_pc){
-		$_("ads1").style.display="none";
-	}
-</script>
-<div class="module"> <!-- 经典完结 -->
-  <h2 class="tit-end"><span>经典完结</span></h2>
-  <ul class="list">
-    <li ><a href="partlist/226753/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[架空] 狐狸戏王爷:毒医傻妃">[架空] 狐狸戏王爷:毒医傻妃 </a></li>
-    <li class="li2"><a href="partlist/201999/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[豪门] 天才儿子迷糊老婆"><font color="red">[豪门] 天才儿子迷糊老婆</font><img src="web/images/hot.gif@sid=c1bq5dsrlq3h9t30uiqa581m31" alt="热门" width="21" height="16" /> </a></li>
-    <li ><a href="partlist/215090/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[宅斗] 去争权夺势:庶不奉陪">[宅斗] 去争权夺势:庶不奉陪 </a></li>
-    <li class="li2"><a href="partlist/209841/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[高干] 军二代:缘嫁首长老公">[高干] 军二代:缘嫁首长老公 </a></li>
-    <li ><a href="partlist/213257/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[豪门] 绑架:总裁大人别贪爱">[豪门] 绑架:总裁大人别贪爱 </a></li>
-    <li class="li2"><a href="partlist/159912/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[热血] 美女全收：至尊赌神">[热血] 美女全收：至尊赌神 </a></li>
-    <li ><a href="partlist/201326/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[异能] 超人:绝代风流神仙手">[异能] 超人:绝代风流神仙手 </a></li>
-    <li class="li2"><a href="partlist/214980/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[纯爱] 甜心:冷少的王牌恋人">[纯爱] 甜心:冷少的王牌恋人 </a></li>
-  </ul>
-</div>
-<div class="module shubao"> <!-- 手机特权书包 -->
-  <h2 class="tit-end"><span>手机特权书包</span></h2>
-  <ul class="shubao-list">
-        <li onClick="window.location.href='web/index.php@a=pack_book_list&pack_id=20&back=&v=rmb'" ><span class="col1">女生必读经典包</span><span class="font12">(50本，12元/30天)</span><br>
-      <span class="font14 col8">推荐作品：惹上腹黑首席</span><br>
-      <input onClick="" class="" type="button" value="订阅">
-    </li>
-        <li onClick="window.location.href='web/index.php@a=pack_book_list&pack_id=4&back=&v=rmb'" class="li2"><span class="col2">豪门总裁包</span><span class="font12">(50本，10元/30天)</span><br>
-      <span class="font14 col8">推荐作品：冷少用过请买单</span><br>
-      <input onClick="" class="" type="button" value="订阅">
-    </li>
-        <li onClick="window.location.href='web/index.php@a=pack_book_list&pack_id=3&back=&v=rmb'" ><span class="col3">女生超值包</span><span class="font12">(50本，5元/30天)</span><br>
-      <span class="font14 col8">推荐作品：我回古代我最大</span><br>
-      <input onClick="" class=""./ type="button" value="订阅">
-    </li>
-        <li onClick="window.location.href='web/index.php@a=pack_book_list&pack_id=5&back=&v=rmb'" class="li2"><span class="col4">穿越架空包</span><span class="font12">(50本，10元/30天)</span><br>
-      <span class="font14 col8">推荐作品：断袖王爷警花妃</span><br>
-      <input onClick="" class="" type="button" value="订阅">
-    </li>
-        <li onClick="window.location.href='web/index.php@a=pack_book_list&pack_id=22&back=&v=rmb'" ><span class="col5">男生必读经典包</span><span class="font12">(50本，12元/30天)</span><br>
-      <span class="font14 col8">推荐作品：都市特种兵</span><br>
-      <input onClick="" class="" type="button" value="订阅">
-    </li>
-    </ul>
-  <div class="more"> <a href="web/index.php@a=pack_book&v=rmb&sid=c1bq5dsrlq3h9t30uiqa581m31" title="更多书包"> 更多书包 </a> </div>
-</div>
-<div class="module"> <!-- 折扣畅销榜 -->
-  <h2 class="tit-sale"><span>折扣畅销榜</span></h2>
-  <ul class="list">
-    <li ><a href="partlist/130402/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[豪门] 前妻乖乖让我疼">[豪门] 前妻乖乖让我疼 (<span>9折</span>)</a></li>
-    <li class="li2"><a href="partlist/72774/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[架空] 绝色特工皇妃"><font color="red">[架空] 绝色特工皇妃</font><img src="web/images/hot.gif@sid=c1bq5dsrlq3h9t30uiqa581m31" alt="热门" width="21" height="16" /> (<span>8折</span>)</a></li>
-    <li ><a href="partlist/132202/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[灵异] 鬼娃娃的新游戏">[灵异] 鬼娃娃的新游戏 (<span>5折</span>)</a></li>
-    <li class="li2"><a href="partlist/126783/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[宝宝] 无敌妈咪坏爹地">[宝宝] 无敌妈咪坏爹地 (<span>8折</span>)</a></li>
-    <li ><a href="partlist/123670/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[都市] 极品之妻妾成群">[都市] 极品之妻妾成群 (<span>5折</span>)</a></li>
-    <li class="li2"><a href="partlist/143270/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[灵异] 盗墓之惊心诡事">[灵异] 盗墓之惊心诡事 (<span>5折</span>)</a></li>
-    <li ><a href="partlist/103652/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[校园] 贵爵:杠上狂校花">[校园] 贵爵:杠上狂校花 (<span>9折</span>)</a></li>
-  </ul>
-  <div class="more"> <a href="web/index.php@a=wap_discount_book&sid=c1bq5dsrlq3h9t30uiqa581m31"> 更多折扣小说 </a> </div>
-</div>
-
-<div class="module"> <!-- 女生圈子 -->
-  <h2 class="tit-girl"><span>女生圈子</span></h2>
-  <ul class="list">
-    <li ><a href="partlist/228883/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[宅斗] 选择题:重生嫡女另聘">[宅斗] 选择题:重生嫡女另聘 </a></li>
-    <li class="li2"><a href="partlist/223907/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[高干] 市长前夫,你好毒"><font color="red">[高干] 市长前夫,你好毒</font><img src="web/images/hot.gif@sid=c1bq5dsrlq3h9t30uiqa581m31" alt="热门" width="21" height="16" /> </a></li>
-    <li ><a href="partlist/228660/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[高干] 妹妹变妻子:隐婚市长">[高干] 妹妹变妻子:隐婚市长 </a></li>
-    <li class="li2"><a href="partlist/211993/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[架空] 龙王令:战神妃卿莫属">[架空] 龙王令:战神妃卿莫属 </a></li>
-    <li ><a href="partlist/229711/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[架空] 悍女:谁动了本王的妃">[架空] 悍女:谁动了本王的妃 </a></li>
-    <li class="li2"><a href="partlist/229204/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[豪门] 深度缠绵，娇妻太萌">[豪门] 深度缠绵，娇妻太萌 </a></li>
-    <li ><a href="partlist/203429/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[架空] 傲妃:风华无双赚钱控">[架空] 傲妃:风华无双赚钱控 </a></li>
-    <li class="li2"><a href="partlist/227734/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[玄幻] 天才宝宝嚣张娘亲">[玄幻] 天才宝宝嚣张娘亲 </a></li>
-  </ul>
-  <div class="more"> <a href="top/all/vipsub/1/1.html@sid=c1bq5dsrlq3h9t30uiqa581m31"> 女生精品小说 </a> </div>
-</div>
-
-<div class="module"> <!-- 男生禁地 -->
-  <h2 class="tit-boy"><span>男生禁地</span></h2>
-  <ul class="list">
-    <li ><a href="partlist/207694/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[热血] 风流都市：桃运狂少">[热血] 风流都市：桃运狂少</a></li>
-    <li class="li2"><a href="partlist/223486/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[乡村] 花煞:村官桃运仕途"><font color="red">[乡村] 花煞:村官桃运仕途</font><img src="web/images/hot.gif@sid=c1bq5dsrlq3h9t30uiqa581m31" alt="热门" width="21" height="16" /></a></li>
-    <li ><a href="partlist/210522/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[异世] 欲踏巅峰途:圣龙邪尊">[异世] 欲踏巅峰途:圣龙邪尊</a></li>
-    <li class="li2"><a href="partlist/210071/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[修真] 握灵宝重踏巅峰:灵鼎">[修真] 握灵宝重踏巅峰:灵鼎</a></li>
-    <li ><a href="partlist/214501/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[乡村] 毒咒:绝世风流小农民">[乡村] 毒咒:绝世风流小农民</a></li>
-    <li class="li2"><a href="partlist/226741/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[奇幻] 风骚崛起，万界至尊">[奇幻] 风骚崛起，万界至尊</a></li>
-    <li ><a href="partlist/231587/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[乡村] 霸业帝国:乡村猎艳记">[乡村] 霸业帝国:乡村猎艳记</a></li>
-    <li class="li2"><a href="partlist/91544/@sid=c1bq5dsrlq3h9t30uiqa581m31" title="[奇幻] 传奇成长史:至尊龙帝">[奇幻] 传奇成长史:至尊龙帝</a></li>
-  </ul>
-  <div class="more"> <a href="fytop/all/vipsub/1/1.html@sid=c1bq5dsrlq3h9t30uiqa581m31"> 男生精品小说 </a> </div>
-</div>
-<!-- ad -->
-
-<div> <a class="btn-downApk" href="../opendata.readnovel.com/web/app/reader/xs.cn_XS_3.10.13.apk">本站Android客户端下载</a> <a class="btn-downIos" href="web/index.php@a=ios_download&sid=c1bq5dsrlq3h9t30uiqa581m31">本站iPhone版可阅VIP章节啦</a> </div>
-<img src="@sid=c1bq5dsrlq3h9t30uiqa581m31" width="0" height="0" />
-
-<footer>
-  <div> <a class="btn-gray" href="#top">TOP</a></div>
-  <ul class="edition">
-    <li>炫彩版</li>
-    <li><a href="@tpl_style=touch_2F">触屏版</a></li>
-    <li><a href="../3g.xs.cn/@tpl_style=3g_2F">3G版</a></li>
-    <li><a href="../m.xs.cn/@tpl_style=wap_2F">WAP版</a></li>
-  </ul>
-  <div class="navArea hide">
-    <nav> <!-- 导航 --> 
-      <a href="mm.html@sid=c1bq5dsrlq3h9t30uiqa581m31" title="">女频</a> ｜ <a href="fy.html@sid=c1bq5dsrlq3h9t30uiqa581m31" title="">男频</a> ｜ <a href="web/xy.php@sid=c1bq5dsrlq3h9t30uiqa581m31" title="">校园</a> ｜ <a href="class.html@sid=c1bq5dsrlq3h9t30uiqa581m31" title="">分类</a> ｜ <a href="top.html@sid=c1bq5dsrlq3h9t30uiqa581m31" title="">排行</a><br>
-    <a href="web/topic.php@sid=c1bq5dsrlq3h9t30uiqa581m31" title="">专题</a> ｜ <a href="web/index.php@a=wap_discount_book&sid=c1bq5dsrlq3h9t30uiqa581m31" title="">折扣</a> ｜ <a href="wjtj.html@sid=c1bq5dsrlq3h9t30uiqa581m31" title="">全本</a> ｜ <a href="web/index.php@a=xuanyi_book&sid=c1bq5dsrlq3h9t30uiqa581m31" title="">小言</a> ｜ <a href="ch/201.html@sid=c1bq5dsrlq3h9t30uiqa581m31" title="">短篇</a> </nav>
-  </div>
-  <div class="navBtnBottom">导航
-    <div class="triUp"></div>
-  </div>
-  <p class="mii"><a href="web/index.php@a=kefu&sid=c1bq5dsrlq3h9t30uiqa581m31">联系客服</a> | <a href="shangwu@sid=c1bq5dsrlq3h9t30uiqa581m31">商务合作</a> | <a href="web/index.php@a=help&sid=c1bq5dsrlq3h9t30uiqa581m31">帮助</a> | <a href="web/index.php@a=jianyi&sid=c1bq5dsrlq3h9t30uiqa581m31">建议</a> </p>
-<div class="f-link"><b>友情链接：</b><a href="../m.hao123.com/@tn=xs01" target="_blank">hao123网址导航</a> | <a href="web/index.php@a=friend_link&sid=c1bq5dsrlq3h9t30uiqa581m31">更多</a></div>  <p class="copyright">
-
-温馨提示：本信息仅供提供演示方便链接，与原网站无关！ <a href="index.html">首页</a>  <a href="lanmu.html">栏目页</a>  <a href="mm.html">频道页</a>  <a href="top.html">排行页</a>  <a href="wenzhangliebiao.html">文章列表页</a>  <a href="zhengwen.html">正文页</a>
-</p>
-</footer>
-<script>
-	//导航
-	NTUI.htmlHelper.navigator();
-	//图集
-	var photoCtrls = X('.indexPhoto .ctrls li'),imgPageBtn = X('.imgPageBtn'),
-	gallerySlide = new NTUI.slide(X('.gallery')[0],{
-			onTouchEnd:function(e,cp){
-				photoCtrls.removeClass('current');
-				photoCtrls[cp].className = 'current';
-			}
-	});
-	imgPageBtn.click(function(){
-		if(this.className.indexOf('imgPageBtn-l')===-1){
-			gallerySlide.next(0.4,1);
-		}
-		else{
-			gallerySlide.prev(0.4,1);
-		}
-	});	
-	
-	setInterval(function(){
-		 if(document.all){
-               //IE
-			   document.getElementById("a1").click();                 
-        }else{  
-              //firefox 里面触发
-               var event = document.createEvent("MouseEvents");  
-               event .initEvent("click",true,true);  
-              document.getElementById('bt').dispatchEvent(event );  
-       }   
-   	},5000);
-</script>
-</body>
-</html> <script type="text/javascript">/*20:3 创建于 2014-12-26*/var cpro_id = "u1879755";</script><script src="http://cpro.baidustatic.com/cpro/ui/cm.js" type="text/javascript"></script>
+        <script>
+            (function(){
+                'use strict';
+                var Util = (function(){
+                    var prefix = 'heml5_reader_';
+                    var StorageGetter = function(key){
+                        return localStorage.getItem(prefix + key);
+                    }
+                    var StorageSetter = function(key,val){
+                       return localStorage.setItem(prefix + key,val); 
+                    }
+                    var getBSONP = function(url,callback){
+                        return $.jsonp({
+                            url:url,
+                            cache:true,
+                            callback:'duokan_fiction_chapter',
+                            success:function(result){
+                                var data = $.base64.decode(result);
+                                var json = decodeURIComponent(escape(data));
+                                callback(json);
+                                
+                            }
+                        })
+                    }
+                    return{
+                        getBSONP:getBSONP,
+                        StorageGetter:StorageGetter,
+                        StorageSetter:StorageSetter
+                    }
+                })();
+                var Dom = {
+                    top_nav:$('#top-nav'),
+                    bottom_nav:$('#footer-nav'),
+                    font_container:$('.font-container'),
+                    icon_font:$('.icon-font'),
+                    night:$('.night'),
+                    daytime:$('.daytime')
+                    
+                };
+                var Win = $(window);
+                var Doc = $(document);
+                var readerModel;
+                var readerUI;
+                var RootContainer = $('#fition_container');
+                var Rootbk=$('#root');
+                var initFontSize = Util.StorageGetter('font-size');
+                initFontSize = parseInt(initFontSize);
+                if(!initFontSize){
+                    initFontSize = 14;
+                }
+                RootContainer.css('font-size',initFontSize);
+                
+                var initbkColor = Util.StorageGetter('background');
+                if(!initbkColor){
+                    initbkColor = '#E9DFC7';
+                }
+                Rootbk.css('background',initbkColor);
+                
+                function main(){
+                    //todo 鏁翠釜鍑芥暟鐨勫叆鍙ｅ嚱鏁�
+                    readerModel = ReaderModel();
+                    readerUI=readerBaseFrame(RootContainer);
+                    readerModel.init(function(data){
+                        readerUI(data);
+                    });
+                    EventHanlder();
+                }
+                function ReaderModel(){
+                    //todo 瀹炵幇鍜岄槄璇诲櫒鐩稿叧鐨勬暟鎹氦浜掔殑鏂规硶
+                    var Chapter_id;
+                    var ChapterTotal;
+                    var init = function(UIcallback){
+                        getFictionInfoPromise().then(function(d){
+                             return getCurChapterContentPromise();
+                        }).then(function(data){
+                                UIcallback && UIcallback(data);
+                        });
+                    }
+                    var getFictionInfo = function(callback){
+                        $.get('data/chapter.json',function(data){
+                            Chapter_id = Util.StorageGetter('last_chapter_id');
+                            if(Chapter_id == null){
+                                Chapter_id = data.chapters[1].chapter_id;
+                            }
+                            ChapterTotal = data.chapters.length;
+                            callback && callback();
+                        },'json');
+                    }
+                    
+                    var getFictionInfoPromise = function(){
+                        return new Promise(function(resolve,reject){
+                            $.get('data/chapter.json',function(data){
+                                if(data.result == 0){
+                                    Chapter_id = Util.StorageGetter('last_chapter_id');
+                                    if(Chapter_id == null){
+                                        Chapter_id = data.chapters[1].chapter_id;
+                                    }
+                                    ChapterTotal = data.chapters.length;
+                                    resolve();
+                                }else{
+                                    reject();
+                                }
+                            },'json');    
+                        });
+                    }
+                    var getCurChapterContent = function(chapter_id,callback){
+                        $.get('data/data' + chapter_id + '.json', function(data){
+                            if(data.result == 0){
+                                var url = data.jsonp;
+                                Util.getBSONP(url,function(data){
+                                    callback && callback(data);
+                                });
+                            }
+                        },'json')
+                    };
+                    
+                    var getCurChapterContentPromise = function(){
+                        return new Promise(function(resolve,reject){
+                            $.get('data/data' + Chapter_id + '.json', function(data){
+                                if(data.result == 0){
+                                    var url = data.jsonp;
+                                    Util.getBSONP(url,function(data){
+                                        resolve(data);
+                                    });
+                                }else{
+                                    reject({msg:'fail'});
+                                }
+                            },'json')
+                        });
+                    }
+                    
+                    
+                    
+                    
+                    
+                    var prevChapter = function(UIcallback){
+                        Chapter_id = parseInt(Chapter_id,10);
+                        if(Chapter_id === 0){
+                            return;
+                        }
+                        Chapter_id = Chapter_id - 1;
+                        getCurChapterContent(Chapter_id,UIcallback);
+                        Util.StorageSetter('last_chapter_id',Chapter_id);
+                    };
+                    var nextChapter = function(UIcallback){
+                        Chapter_id = parseInt(Chapter_id,10);
+                        if(Chapter_id == ChapterTotal){
+                            return;
+                        }
+                        Chapter_id = Chapter_id + 1;
+                        getCurChapterContent(Chapter_id,UIcallback);
+                        Util.StorageSetter('last_chapter_id',Chapter_id);
+                    };
+                    return {
+                        init:init,
+                        prevChapter:prevChapter,
+                        nextChapter:nextChapter
+                    }
+                }
+                function readerBaseFrame(container){
+                    //todo 娓叉煋鍩烘湰鐨刄I
+                    function parseChapterData(jsonData){
+                        var jsonObj = JSON.parse(jsonData);
+                        var html = '<h4>' + jsonObj.t + '</h4>';
+                        for(var i = 0; i < jsonObj.p.length;i++){
+                            html += '<p>' + jsonObj.p[i] + '</p>';
+                        }
+                        return html
+                    }
+                    return function(data){
+                        container.html(parseChapterData(data));
+                    }
+                }
+                
+                
+                
+                
+                
+                
+                
+                function EventHanlder(){
+                    //todo 浜や簰鐨勪簨浠剁粦瀹�
+                    //鐐瑰嚮涓棿鍖哄煙锛屼笂涓嬭竟鏍忔樉绀猴紝婊氬姩鏃堕殣钘�
+                    $('#action_mid').click(function(){
+                        if(Dom.top_nav.css('display') == 'none'){
+                            Dom.bottom_nav.show();
+                            Dom.top_nav.show();
+                        }else{
+                            Dom.bottom_nav.hide();
+                            Dom.top_nav.hide();
+                            Dom.font_container.hide();
+                            Dom.icon_font.removeClass('icon-fonts');
+                        }
+                    });
+                    $('.foot-content').click(function(){
+                        if(Dom.font_container.css('display') == 'none'){
+                            Dom.font_container.show();
+                            Dom.icon_font.addClass('icon-fonts');
+                        }else{
+                            Dom.font_container.hide();
+                            Dom.icon_font.removeClass('icon-fonts');
+                        }
+                    });
+                    //鏀瑰彉鑳屾櫙棰滆壊
+                    Dom.night.click(function(){
+                        //todo 
+                        $(this).css('display','none');
+                        Dom.daytime.css('display','block');
+                        initbkColor = '#0F1410';
+                        Rootbk.css('background',initbkColor);
+                        Util.StorageSetter('background',initbkColor);
+                        
+                    });
+                   Dom.daytime.click(function(){
+                        $(this).css('display','none');
+                        Dom.night.css('display','block');
+                        initbkColor = '#E9DFC7';
+                        Rootbk.css('background',initbkColor);
+                        Util.StorageSetter('background',initbkColor);
+                    });
+                    $('.bk-container').click(function(){
+                        initbkColor = $(this).css('background');
+                        Rootbk.css('background',initbkColor);
+                        Util.StorageSetter('background',initbkColor);
+                    })
+                    //鏀瑰彉瀛椾綋澶у皬
+                    $('#large-font').click(function(){
+                        if(initFontSize > 20){
+                            return;
+                        }
+                        initFontSize += 1;
+                        RootContainer.css('font-size',initFontSize);
+                        Util.StorageSetter('font-size',initFontSize);
+                    });
+                    $('#small-font').click(function(){
+                        if(initFontSize < 12){
+                            return;
+                        }
+                        initFontSize -= 1;
+                        RootContainer.css('font-size',initFontSize);
+                        Util.StorageSetter('font-size',initFontSize);
+                    });
+                    //婊氬姩鏃惰竟鏍忔秷澶�
+                    Win.scroll(function(){
+                        Dom.bottom_nav.hide();
+                        Dom.top_nav.hide();
+                        Dom.font_container.hide();
+                        Dom.icon_font.removeClass('icon-fonts');
+                    });
+                    $('#prev_button').click(function(){
+                        readerModel.prevChapter(function(data){
+                            readerUI(data);
+                        });
+                        
+                    });
+                    $('#next_button').click(function(){
+                        readerModel.nextChapter(function(data){
+                            readerUI(data);
+                        });
+                    });
+                }
+                main();
+            })();
+        </script>
+    </body>
+</html>

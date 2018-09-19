@@ -55,7 +55,7 @@ public class PaChongUtil {
      * @return
      */
     private List findShuJi(String str) {
-        EncrypDES des = new EncrypDES();
+        //EncrypDES des = new EncrypDES();
         List listart=new ArrayList();
         if(StringUtils.isNotEmpty(str)){
             //转化html
@@ -81,11 +81,11 @@ public class PaChongUtil {
                     Elements aele = lidoc.getElementsByTag("a");
                     bookparam.put("bookName",aele.eq(0).text());
                     String linkurl=aele.eq(0).attr("href");
-                    try {
+                    /*try {
                         linkurl=URLEncoder.encode(des.aesEncrypt(linkurl),"UTF-8");
                     } catch (Exception e) {
                         e.printStackTrace();
-                    }
+                    }*/
                     bookparam.put("bookLink",linkurl);
                     listBook.add(bookparam);
                 }
@@ -113,7 +113,7 @@ public class PaChongUtil {
         if(urlstr.contains("https")){
             rootPath="https://"+urlstr.split("//")[1].split("/")[0];
         }
-        EncrypDES des = new EncrypDES();
+        //EncrypDES des = new EncrypDES();
         Map paramMap=new HashMap();
         if(StringUtils.isNotEmpty(str)){
             //标题
@@ -170,12 +170,12 @@ public class PaChongUtil {
                 }
 
                 String linkurl=link;
-                try {
+                /*try {
                     linkurl= URLEncoder.encode(des.aesEncrypt(link),"UTF-8");
                 } catch (Exception e) {
                     e.printStackTrace();
                     linkurl=link;
-                }
+                }*/
                 linkMap.put("link",linkurl);
                 linkMap.put("linktext",linktext);
                 listart.add(linkMap);
@@ -204,7 +204,10 @@ public class PaChongUtil {
             Document doc = Jsoup.parse(str);
             //获取maininfo节点
             Element content = doc.getElementById("content");
-            contentDetail=content.text();
+            if(content!=null){
+                contentDetail=content.text();
+            }
+
         }
         return contentDetail;
     }
