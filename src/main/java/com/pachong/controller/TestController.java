@@ -108,4 +108,38 @@ public class TestController {
         List<PCNovel> list = novelDao.selectByChapterId(chapterId);
         return list;
     }
+
+
+    /**
+     * 章节-下一章
+     * @param nowChapterId
+     * @return
+     */
+    @RequestMapping("findnextnovel")
+    public Map findNextNovel(Integer nowChapterId,Integer bookId){
+        Map map=new HashMap();
+        map.put("chapterId",nowChapterId);
+        map.put("bookId",bookId);
+        Integer chapterId = novelDao.selectByNextChapterId(map);
+        Map parammap=new HashMap();
+        parammap.put("chapterId",chapterId);
+        return parammap;
+    }
+
+
+    /**
+     * 章节-上一章
+     * @param nowChapterId
+     * @return
+     */
+    @RequestMapping("findprenovel")
+    public Map findPreNovel(Integer nowChapterId,Integer bookId){
+        Map map=new HashMap();
+        map.put("chapterId",nowChapterId);
+        map.put("bookId",bookId);
+        Integer chapterId = novelDao.selectByPreChapterId(map);
+        Map parammap=new HashMap();
+        parammap.put("chapterId",chapterId);
+        return parammap;
+    }
 }

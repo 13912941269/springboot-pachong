@@ -523,15 +523,12 @@
                         if(Chapter_id === 0){
                             return;
                         }
-                        Chapter_id = Chapter_id - 1;
                         $('.add_tc').fadeIn();
-                        $.get('findnovel?chapterId=' + Chapter_id, function(data){
-                            if(data.length > 0){
-                                getCurChapterContent(Chapter_id,UIcallback);
-                                Util.StorageSetter('last_chapter_id',Chapter_id);
-                            }else{
-                                Chapter_id = Chapter_id - 1;
-                                prevChapter(Chapter_id);
+                        $.get('findprenovel?nowChapterId=' + Chapter_id+"&bookId="+$("#bookId").val(), function(data){
+                            if(data.chapterId != null){
+                                Chapter_id= data.chapterId;
+                                getCurChapterContent(data.chapterId,UIcallback);
+                                Util.StorageSetter('last_chapter_id',data.chapterId);
                             }
                             $('.add_tc').fadeOut();
                         },'json')
@@ -544,15 +541,12 @@
                         if(Chapter_id == ChapterTotal){
                             return;
                         }
-                        Chapter_id = Chapter_id + 1;
                         $('.add_tc').fadeIn();
-                        $.get('findnovel?chapterId=' + Chapter_id, function(data){
-                            if(data.length > 0){
-                                getCurChapterContent(Chapter_id,UIcallback);
-                                Util.StorageSetter('last_chapter_id',Chapter_id);
-                            }else{
-                                Chapter_id = Chapter_id + 1;
-                                nextChapter(Chapter_id);
+                        $.get('findnextnovel?nowChapterId=' + Chapter_id+"&bookId="+$("#bookId").val(), function(data){
+                            if(data.chapterId != null){
+                                Chapter_id= data.chapterId;
+                                getCurChapterContent(data.chapterId,UIcallback);
+                                Util.StorageSetter('last_chapter_id',data.chapterId);
                             }
                             $('.add_tc').fadeOut();
                         },'json')

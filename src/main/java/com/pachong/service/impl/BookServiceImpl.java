@@ -87,7 +87,7 @@ public class BookServiceImpl implements BookService {
                 for(Object objectzj:zjList){
                     Map zjparam=(Map)objectzj;
                     Map checkChapter=new HashMap();
-                    checkChapter.put("chapterName",(String)zjparam.get("linktext"));
+                    checkChapter.put("chapterTitle",(String)zjparam.get("linktext"));
                     checkChapter.put("bookId",pcBookCheck.getBookId());
                     PCChapter pcChapter = pcchapterdao.selectByChapterNameAndBookId(checkChapter);
                     if(pcChapter==null){
