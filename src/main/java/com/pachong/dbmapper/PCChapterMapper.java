@@ -2,6 +2,7 @@ package com.pachong.dbmapper;
 
 import com.pachong.model.PCChapter;
 
+import java.util.List;
 import java.util.Map;
 
 public interface PCChapterMapper {
@@ -12,4 +13,6 @@ public interface PCChapterMapper {
     PCChapter selectByPrimaryKey(Integer chapterId);
 
     PCChapter selectByChapterNameAndBookId(Map map);
+
+    List<PCChapter> selectByBookId(Integer bookId);
 }

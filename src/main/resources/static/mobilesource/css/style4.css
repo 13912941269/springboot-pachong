@@ -1,0 +1,140 @@
+﻿/*办事指南*/
+.bszn{
+	margin: 0 .2rem;
+	padding-top: .3rem;
+}
+.bszn ul li{
+	padding: .28rem 0;
+	border-bottom: 1px solid #d8d6d6;
+}
+.bszn ul li:last-child{
+	border: none;
+}
+.bszn ul li .bs_img{
+	width: 2.8rem;
+	height: 2.1rem;
+	float: left;
+	position: relative;
+}
+.bszn ul li .bs_img img{
+	position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;	
+}
+.bs_rg{
+	width: 4.1rem;
+	float: left;
+	margin-left: .2rem;
+}
+.bs_rg h2{
+	color: #242424;
+	font-size: .28rem;
+	line-height: .35rem;
+	margin-bottom: .2rem;
+	overflow : hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+.bs_rg p{
+	margin-bottom: .2rem;
+	font-size: .24rem;
+	color: #504f4f;
+	line-height: .32rem;
+	overflow : hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+.bs_rg span{
+	color: #7F7F7F;
+	font-size: .22rem;	
+}
+
+/*办事指南详情*/
+.bszn_xq{
+	margin-top: .2rem;
+}
+.bszn_xq_tit{
+	margin: 0 .2rem;
+}
+.bszn_xq_tit h1{
+	color: #242424;
+	font-size: .38rem;
+	line-height: .55rem;
+	font-weight: bold;	
+}
+.bszn_xq_tit p{
+	margin-top: .28rem;
+	color: #6b6b6b;
+	font-size: .22rem;
+}
+.bszn_xq_tit p span:first-child:after{
+	content: '';
+	width: .07rem;
+	height: .07rem;
+	background: #6b6b6b;
+	border-radius: 50%;
+	display: inline-block;
+	margin: 0.05rem .08rem;
+}
+.basz_new{	
+	line-height: .55rem;
+	color: #373535;
+	font-size: .3rem;
+}
+.basz_new img{
+	padding: .3rem 0 .2rem;
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+.basz_news{
+	padding: .2rem .2rem .5rem;
+}
+
+/*加载中*/
+.add_tc{
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+}
+.add_tc1{
+	position: absolute;
+	height: 2.5rem;
+	width: 3.1rem;
+	top: 50%;
+	left: 50%;
+	margin-top: -1.25rem;
+	margin-left: -1.65rem;
+	background: #fff;
+	border-radius: .1rem;
+}
+.add_tc1 p{
+	font-size: .32rem;
+	color: #252525;
+	text-align: center;
+	padding-top: .5rem;
+}
+.add_tc img{
+	display: block;
+	margin: 0 auto;
+	margin-top: .1rem;
+}
+.add_tc1 h5{
+	color: #0a6fbd;
+	text-align: center;
+	font-size: .24rem;
+	padding-top: .16rem;
+}

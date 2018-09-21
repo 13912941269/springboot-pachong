@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta name="Author" content="">
+    <meta content="cn" name="design">
+    <title>${pcBook.bookName}</title>
+    <link type="text/css" rel="stylesheet" href="${ctxPath}/mobilesource/css/base.css"/>
+    <link rel="stylesheet" href="${ctxPath}/mobilesource/css/style4.css"/><!--这个是王笑笑的样式表-->
+	<script src="${ctxPath}/mobilesource/js/jquery-1.9.1.min.js"></script>
+    <script src="${ctxPath}/mobilesource/js/imgsize.js"></script><!--公共js可以放在这里面，因为每个页面都会调用-->
+</head>
+<body>
+<input type="hidden" value="${pcBook.bookId}" id="bookId">
+<div class="top_public">
+	<ul>
+		<li><i></i></li>
+		<li class="on" style="width: 100%;"><i></i><a href="">${pcBook.bookName}</a></li>
+		<li><i></i></li>
+	</ul>
+</div>
+<div class="bszn">
+	<ul id="container">
+		<!--<li>
+			<a href="办事指南详情页.html">
+				<h2>需在工商站办理《食品流通许可证》的有哪些？需在工商站办理《食品流通许可证》的有哪些？</h2>
+			</a>
+		</li>-->
+	</ul>
+</div>
+<!--加载中-->
+<div class="add_tc">
+    <div class="add_tc1">
+        <p>加载中</p>
+        <img src="${ctxPath}/mobilesource/images/loading.gif"/>
+        <h5>...</h5>
+    </div>
+</div>
+<script src="${ctxPath}/mobilesource/lib/zepto.min.js"></script>
+<script>
+    window.jQuery = $;
+</script>
+<script src="${ctxPath}/mobilesource/js/jquery.base64.js"></script>
+<script src="${ctxPath}/mobilesource/js/jquery.jsonp.js"></script>
+<script src="${ctxPath}/mobilesource/js/zepto.fx.js"></script>
+<script>
+    (function(){
+        var RootContainer = $('#container');
+        var bookId=$('#bookId').val();
+        function main(){
+            //todo 整个函数的入口函数
+            var readerModel = ReaderModel();
+            var readerUI=readerBaseFrame(RootContainer);
+            readerModel.init(function(data){
+                readerUI(data);
+            });
+        }
+        function ReaderModel(){
+            //todo 实现和阅读器相关的数据交互的方法
+            var init = function(UIcallback){
+                return getCurChapterContentPromise().then(function(data){
+                    UIcallback && UIcallback(data);
+                });
+            }
+
+            var getCurChapterContentPromise = function(){
+                $('.add_tc').fadeIn();
+                return new Promise(function(resolve,reject){
+                    $.get('findchapter?bookId='+bookId, function(data){
+                        if(data.length > 0){
+                            resolve(data);
+                        }else{
+                            reject({msg:'fail'});
+                        }
+                        $('.add_tc').fadeOut();
+                    },'json')
+                });
+            }
+
+            return {
+                init:init
+            }
+        }
+
+        function readerBaseFrame(container){
+            //todo 渲染基本的UI
+            function parseChapterData(jsonData){
+                var html='';
+                for(var i=0;i<jsonData.length;i++){
+                    html+="<li>";
+                    html+="<a href=\"read?bookId="+jsonData[i].bookId+"&chapterId="+jsonData[i].chapterId+"\">";
+                    html+="<h2>"+jsonData[i].chapterTitle+"</h2>";
+                    html+="</a>";
+                    html+="</li>";
+                }
+                return html;
+            }
+
+            return function(data){
+                container.html(parseChapterData(data));
+            }
+        }
+        main();
+    })();
+</script>
+</body>
+</html>

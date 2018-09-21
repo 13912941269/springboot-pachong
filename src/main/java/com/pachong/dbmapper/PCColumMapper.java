@@ -2,6 +2,9 @@ package com.pachong.dbmapper;
 
 import com.pachong.model.PCColum;
 
+import java.util.List;
+import java.util.Map;
+
 public interface PCColumMapper {
     int deleteByPrimaryKey(Integer columId);
 
@@ -9,7 +12,9 @@ public interface PCColumMapper {
 
     PCColum selectByPrimaryKey(Integer columId);
 
-    PCColum selectByColumName(String columName);
+    PCColum selectByColumName(Map map);
 
     int updateByPrimaryKeySelective(PCColum record);
+
+    List<PCColum> selectByParentId(Integer parentId);
 }

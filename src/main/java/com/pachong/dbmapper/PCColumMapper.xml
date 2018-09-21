@@ -5,19 +5,29 @@
     <id column="colum_id" property="columId" jdbcType="INTEGER" />
     <result column="colum_name" property="columName" jdbcType="VARCHAR" />
     <result column="addtime" property="addtime" jdbcType="TIMESTAMP" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
     <result column="order_val" property="orderVal" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    colum_id, colum_name, addtime, order_val
+    colum_id, colum_name, addtime, parent_id, order_val
   </sql>
 
 
 
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from pc_colum
     where colum_id = #{columId,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="selectByParentId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pc_colum
+    where parent_id = #{parentId,jdbcType=INTEGER}
   </select>
 
 
@@ -25,7 +35,11 @@
     select
     <include refid="Base_Column_List" />
     from pc_colum
-    where colum_name = #{columName,jdbcType=VARCHAR} limit 0,1
+    where colum_name = #{columName,jdbcType=VARCHAR}
+    <if test="parentId!=null">
+      and parent_id = #{parentId,jdbcType=INTEGER}
+    </if>
+    limit 0,1
   </select>
 
 
@@ -46,6 +60,9 @@
       <if test="addtime != null" >
         addtime,
       </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
       <if test="orderVal != null" >
         order_val,
       </if>
@@ -60,11 +77,18 @@
       <if test="addtime != null" >
         #{addtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
       <if test="orderVal != null" >
         #{orderVal,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
+
+
+
+
   <update id="updateByPrimaryKeySelective" parameterType="com.pachong.model.PCColum" >
     update pc_colum
     <set >
@@ -73,6 +97,9 @@
       </if>
       <if test="addtime != null" >
         addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
       </if>
       <if test="orderVal != null" >
         order_val = #{orderVal,jdbcType=INTEGER},

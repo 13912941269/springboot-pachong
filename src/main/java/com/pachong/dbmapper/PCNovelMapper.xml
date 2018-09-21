@@ -4,12 +4,17 @@
   <resultMap id="BaseResultMap" type="com.pachong.model.PCNovel" >
     <id column="novel_id" property="novelId" jdbcType="INTEGER" />
     <result column="chapter_id" property="chapterId" jdbcType="INTEGER" />
+    <result column="chapter_title" property="chapterTitle" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.pachong.model.PCNovel" extends="BaseResultMap" >
     <result column="vovel_detail" property="vovelDetail" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     novel_id, chapter_id
+  </sql>
+
+  <sql id="New_Column_List" >
+    novel_id, a.chapter_id,b.chapter_title
   </sql>
   <sql id="Blob_Column_List" >
     vovel_detail
@@ -26,6 +31,16 @@
     where novel_id = #{novelId,jdbcType=INTEGER}
   </select>
 
+
+
+  <select id="selectByChapterId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select
+    <include refid="New_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pc_novel a left join pc_chapter b on a.chapter_id=b.chapter_id
+    where a.chapter_id = #{chapterId,jdbcType=INTEGER}
+  </select>
 
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

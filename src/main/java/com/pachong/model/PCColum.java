@@ -9,6 +9,8 @@ public class PCColum {
 
     private Date addtime;
 
+    private Integer parentId;
+
     private Integer orderVal;
 
     public Integer getColumId() {
@@ -37,6 +39,14 @@ public class PCColum {
 
     public Integer getOrderVal() {
         return orderVal;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 
     public void setOrderVal(Integer orderVal) {

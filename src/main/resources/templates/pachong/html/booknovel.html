@@ -228,9 +228,51 @@
                 width:100%;
                 height:40%;
             }
+
+
+            /*加载中*/
+            .add_tc{
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+            }
+            .add_tc1{
+                position: absolute;
+                height: 2.5rem;
+                width: 3.1rem;
+                top: 50%;
+                left: 50%;
+                margin-top: -1.25rem;
+                margin-left: -1.65rem;
+                background: #fff0;
+                border-radius: .1rem;
+            }
+            .add_tc1 p{
+                font-size: .32rem;
+                color: #252525;
+                text-align: center;
+                padding-top: .5rem;
+            }
+            .add_tc img{
+                display: block;
+                margin: 0 auto;
+                margin-top: .1rem;
+            }
+            .add_tc1 h5{
+                color: #0a6fbd;
+                text-align: center;
+                font-size: .24rem;
+                padding-top: .16rem;
+            }
         </style>
     </head>
     <body>
+    <input type="hidden" value="${bookId}" id="bookId">
+    <input type="hidden" value="${chapterId!}" id="chapterId">
         <div id="root" class="container">
             
             <div class="m-artical-action">
@@ -302,18 +344,29 @@
                 </div>
             </div>
         </div>
+
+
+    <!--弹框附件上传中-->
+    <div class="add_tc">
+        <div class="add_tc1">
+            <p></p>
+            <img src="${ctxPath}/mobilesource/images/loading.gif"/>
+            <h5>...</h5>
+        </div>
+    </div>
         <script src="${ctxPath}/mobilesource/lib/zepto.min.js"></script>
         <script>
             window.jQuery = $;
         </script>
         <script src="${ctxPath}/mobilesource/js/jquery.base64.js"></script>
         <script src="${ctxPath}/mobilesource/js/jquery.jsonp.js"></script>
-
+        <script src="${ctxPath}/mobilesource/js/zepto.fx.js"></script>
+        <script src="${ctxPath}/mobilesource/js/jquery-1.9.1.min.js"></script>
         <script>
             (function(){
                 'use strict';
                 var Util = (function(){
-                    var prefix = 'heml5_reader_';
+                    var prefix = 'heml5_reader_'+$("#bookId").val();
                     var StorageGetter = function(key){
                         return localStorage.getItem(prefix + key);
                     }
@@ -339,6 +392,10 @@
                         StorageSetter:StorageSetter
                     }
                 })();
+
+
+
+
                 var Dom = {
                     top_nav:$('#top-nav'),
                     bottom_nav:$('#footer-nav'),
@@ -366,7 +423,10 @@
                     initbkColor = '#E9DFC7';
                 }
                 Rootbk.css('background',initbkColor);
-                
+
+
+
+
                 function main(){
                     //todo 整个函数的入口函数
                     readerModel = ReaderModel();
@@ -376,6 +436,10 @@
                     });
                     EventHanlder();
                 }
+
+
+
+
                 function ReaderModel(){
                     //todo 实现和阅读器相关的数据交互的方法
                     var Chapter_id;
@@ -384,10 +448,10 @@
                         getFictionInfoPromise().then(function(d){
                              return getCurChapterContentPromise();
                         }).then(function(data){
-                                UIcallback && UIcallback(data);
+                             UIcallback && UIcallback(data);
                         });
                     }
-                    var getFictionInfo = function(callback){
+                    /*var getFictionInfo = function(callback){
                         $.get('data/chapter.json',function(data){
                             Chapter_id = Util.StorageGetter('last_chapter_id');
                             if(Chapter_id == null){
@@ -396,46 +460,56 @@
                             ChapterTotal = data.chapters.length;
                             callback && callback();
                         },'json');
-                    }
+                    }*/
                     
                     var getFictionInfoPromise = function(){
-                        return new Promise(function(resolve,reject){
-                            $.get('data/chapter.json',function(data){
-                                if(data.result == 0){
-                                    Chapter_id = Util.StorageGetter('last_chapter_id');
-                                    if(Chapter_id == null){
-                                        Chapter_id = data.chapters[1].chapter_id;
+                        if($("#chapterId").val()=="") {
+                            $('.add_tc').fadeIn();
+                            return new Promise(function (resolve, reject) {
+                                $.get('findchapter?bookId=' + $("#bookId").val(), function (data) {
+                                    if (data.length > 0) {
+                                        Chapter_id = Util.StorageGetter('last_chapter_id');
+                                        if (Chapter_id == null) {
+                                            Chapter_id = data[0].chapterId;
+                                        }
+                                        ChapterTotal = 0;
+                                        resolve();
+                                    } else {
+                                        reject();
                                     }
-                                    ChapterTotal = data.chapters.length;
-                                    resolve();
-                                }else{
-                                    reject();
-                                }
-                            },'json');    
-                        });
+                                    $('.add_tc').fadeOut();
+                                }, 'json');
+                            });
+                        }else{
+                            return new Promise(function (resolve, reject) {
+                                Chapter_id=$("#chapterId").val();
+                                resolve();
+                            });
+                        }
                     }
+
+
                     var getCurChapterContent = function(chapter_id,callback){
-                        $.get('data/data' + chapter_id + '.json', function(data){
-                            if(data.result == 0){
-                                var url = data.jsonp;
-                                Util.getBSONP(url,function(data){
-                                    callback && callback(data);
-                                });
+                        $('.add_tc').fadeIn();
+                        $.get('findnovel?chapterId=' + chapter_id, function(data){
+                            if(data.length > 0){
+                                callback && callback(data);
                             }
+                            $('.add_tc').fadeOut();
                         },'json')
                     };
-                    
+
+
                     var getCurChapterContentPromise = function(){
+                        $('.add_tc').fadeIn();
                         return new Promise(function(resolve,reject){
-                            $.get('data/data' + Chapter_id + '.json', function(data){
-                                if(data.result == 0){
-                                    var url = data.jsonp;
-                                    Util.getBSONP(url,function(data){
-                                        resolve(data);
-                                    });
+                            $.get('findnovel?chapterId=' + Chapter_id, function(data){
+                                if(data.length > 0){
+                                    resolve(data);
                                 }else{
                                     reject({msg:'fail'});
                                 }
+                                $('.add_tc').fadeOut();
                             },'json')
                         });
                     }
@@ -450,33 +524,56 @@
                             return;
                         }
                         Chapter_id = Chapter_id - 1;
-                        getCurChapterContent(Chapter_id,UIcallback);
-                        Util.StorageSetter('last_chapter_id',Chapter_id);
+                        $('.add_tc').fadeIn();
+                        $.get('findnovel?chapterId=' + Chapter_id, function(data){
+                            if(data.length > 0){
+                                getCurChapterContent(Chapter_id,UIcallback);
+                                Util.StorageSetter('last_chapter_id',Chapter_id);
+                            }else{
+                                Chapter_id = Chapter_id - 1;
+                                prevChapter(Chapter_id);
+                            }
+                            $('.add_tc').fadeOut();
+                        },'json')
                     };
+
+
+
                     var nextChapter = function(UIcallback){
                         Chapter_id = parseInt(Chapter_id,10);
                         if(Chapter_id == ChapterTotal){
                             return;
                         }
                         Chapter_id = Chapter_id + 1;
-                        getCurChapterContent(Chapter_id,UIcallback);
-                        Util.StorageSetter('last_chapter_id',Chapter_id);
+                        $('.add_tc').fadeIn();
+                        $.get('findnovel?chapterId=' + Chapter_id, function(data){
+                            if(data.length > 0){
+                                getCurChapterContent(Chapter_id,UIcallback);
+                                Util.StorageSetter('last_chapter_id',Chapter_id);
+                            }else{
+                                Chapter_id = Chapter_id + 1;
+                                nextChapter(Chapter_id);
+                            }
+                            $('.add_tc').fadeOut();
+                        },'json')
                     };
+
                     return {
                         init:init,
                         prevChapter:prevChapter,
                         nextChapter:nextChapter
                     }
                 }
+
+
+
                 function readerBaseFrame(container){
                     //todo 渲染基本的UI
                     function parseChapterData(jsonData){
-                        var jsonObj = JSON.parse(jsonData);
-                        var html = '<h4>' + jsonObj.t + '</h4>';
-                        for(var i = 0; i < jsonObj.p.length;i++){
-                            html += '<p>' + jsonObj.p[i] + '</p>';
-                        }
-                        return html
+                        //var jsonObj = JSON.parse(jsonData);
+                        var html = '<h4>' + jsonData[0].chapterTitle + '</h4>';
+                        html += '<p>' + jsonData[0].vovelDetail + '</p>';
+                        return html;
                     }
                     return function(data){
                         container.html(parseChapterData(data));
@@ -562,16 +659,39 @@
                         readerModel.prevChapter(function(data){
                             readerUI(data);
                         });
-                        
+                        backToTop();
                     });
                     $('#next_button').click(function(){
                         readerModel.nextChapter(function(data){
                             readerUI(data);
                         });
+                        backToTop();
                     });
                 }
                 main();
+
+
+
+
+                $(".foot-left").click(function(){
+                    window.location.href="chapterlist?bookId="+$("#bookId").val();
+                })
+
+                $(".top-nav").click(function(){
+                    window.location.href="booklist";
+                })
             })();
+
+
+
+            function backToTop() {
+                //$('html,body').animate({scrollTop: 0}, 800);
+                //$('html').animate({ scrollTop: 0 }, 800);
+                window.scrollTo(0,0);
+            }
+
+
+
         </script>
     </body>
 </html>

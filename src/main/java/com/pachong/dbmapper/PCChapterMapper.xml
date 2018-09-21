@@ -25,7 +25,15 @@
     select
     <include refid="Base_Column_List" />
     from pc_chapter
-    where chapter_name = #{chapterName,jdbcType=VARCHAR} and book_id=#{bookId,jdbcType=INTEGER} limit 0,1
+    where chapter_name = #{chapterName,jdbcType=VARCHAR}
+    and book_id=#{bookId,jdbcType=INTEGER} limit 0,1
+  </select>
+
+  <select id="selectByBookId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from pc_chapter
+    where book_id=#{bookId,jdbcType=INTEGER}
   </select>
 
 

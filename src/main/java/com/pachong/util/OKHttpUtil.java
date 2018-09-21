@@ -2,6 +2,8 @@ package com.pachong.util;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.pachong.model.PCChapter;
+import com.pachong.model.PCNovel;
 import info.monitorenter.cpdetector.io.*;
 import okhttp3.*;
 import org.apache.commons.lang3.StringUtils;
@@ -11,6 +13,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ShiWei on 2018-06-12.
@@ -151,6 +156,13 @@ public class OKHttpUtil {
     }
 
     public static void main(String[] args) throws IOException {
-
+        PaChongUtil pachong=new PaChongUtil();
+        Map mapzj = pachong.zhangJie("https://www.booktxt.net/2_2219/");
+        List zjList=(List)mapzj.get("listart");
+        //System.out.println(zjList.size());
+        for(Object objectzj:zjList){
+            Map zjparam=(Map)objectzj;
+            System.out.println(zjparam.get("linktext"));
+        }
     }
 }
