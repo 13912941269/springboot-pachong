@@ -19,4 +19,6 @@ public interface PCNovelMapper {
     Integer selectByPreChapterId(Map map);
 
     Integer selectByNextChapterId(Map map);
+
+    List<PCNovel> selectAllNovel();
 }

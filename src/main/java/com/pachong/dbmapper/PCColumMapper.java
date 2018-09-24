@@ -17,4 +17,6 @@ public interface PCColumMapper {
     int updateByPrimaryKeySelective(PCColum record);
 
     List<PCColum> selectByParentId(Integer parentId);
+
+    List<PCColum> selectAllColum();
 }

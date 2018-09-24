@@ -30,11 +30,10 @@ public class QuartzService {
         System.out.println("11");
         //bookService.insertBookIn(URLONE);
         bookService.insertBookIn(URLTWO);
-        System.out.println("22");
-        //bookService.insertBookIn(URLTHREE);
-        //bookService.insertBookIn(URLFOUR);
-        //bookService.insertBookIn(URLFIVE);
-        //bookService.insertBookIn(URLSIX);
-        //bookService.insertBookIn(URLSEVEN);
+        bookService.insertBookIn(URLTHREE);
+        bookService.insertBookIn(URLFOUR);
+        bookService.insertBookIn(URLFIVE);
+        bookService.insertBookIn(URLSIX);
+        bookService.insertBookIn(URLSEVEN);
     }
 }

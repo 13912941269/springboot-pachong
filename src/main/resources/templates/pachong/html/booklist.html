@@ -21,9 +21,9 @@
 <body>
 <div class="top_public">
 	<ul id="columcontainer">
-		<li class="on"><i></i><a href="">玄幻小说</a></li>
-		<li><i></i><a href="javascript:void(0)">都市小说</a></li>
-		<li><i></i><a href="javascript:void(0)">修真小说</a></li>
+        <%for(item in listColum){%>
+		    <li style="width: ${100/listSize}%" columId="${item.columId}"><i></i><a href="javascript:void(0)">${item.columName}</a></li>
+        <%}%>
 	</ul>
 </div>
 <div class="bszn">
@@ -62,32 +62,29 @@
 <script>
     (function(){
         var RootContainer = $('#container');
-
-        function main(){
+        function main(columId){
             //todo 整个函数的入口函数
-            var readerModel = ReaderModel();
-            var readerUI=readerBaseFrame(RootContainer);
+            var readerModel = ReaderModel(columId);
+            var readerUI=readerBaseFrame(RootContainer,columId);
             readerModel.init(function(data){
                 readerUI(data);
             });
         }
-        function ReaderModel(){
+        function ReaderModel(columId){
             //todo 实现和阅读器相关的数据交互的方法
             var init = function(UIcallback){
-				return getCurChapterContentPromise().then(function(data){
+				return getCurChapterContentPromise(columId).then(function(data){
                     UIcallback && UIcallback(data);
                 });
             }
 
-            var getCurChapterContentPromise = function(){
+            var getCurChapterContentPromise = function(columId){
                 $('.add_tc').fadeIn();
                 return new Promise(function(resolve,reject){
-                    $.get('findbook?columId=19', function(data){
-                        if(data.length > 0){
+                    $.get('findbook?columId='+columId, function(data){
+                        //if(data.length > 0){
                             resolve(data);
-                        }else{
-                            reject({msg:'fail'});
-                        }
+                        //}
                         $('.add_tc').fadeOut();
                     },'json')
                 });
@@ -98,7 +95,7 @@
             }
         }
 
-        function readerBaseFrame(container){
+        function readerBaseFrame(container,columId){
             //todo 渲染基本的UI
             function parseChapterData(jsonData){
                 var html='';
@@ -122,10 +119,27 @@
 
             return function(data){
                 container.html(parseChapterData(data));
+                $("#columcontainer").find("li").each(function(){
+                    var nowColumId=$(this).attr("columId");
+                    if(nowColumId==columId){
+                        $("#columcontainer").find("li").removeClass("on");
+                        $(this).addClass("on");
+                    }
+                });
             }
         }
-        main();
+
+        var initColumId=$("#columcontainer").find("li").eq(0).attr("columId");
+        main(initColumId);
+
+        $("#columcontainer").find("li").each(function(){
+            $(this).click(function(){
+                var nowColumId=$(this).attr("columId");
+                main(nowColumId);
+            })
+        });
     })();
+
 </script>
 </body>
 </html>

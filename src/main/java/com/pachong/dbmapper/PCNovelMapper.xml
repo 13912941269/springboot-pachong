@@ -33,6 +33,16 @@
 
 
 
+  <select id="selectAllNovel" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pc_novel
+  </select>
+
+
+
   <select id="selectByChapterId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select
     <include refid="New_Column_List" />
@@ -45,11 +55,17 @@
 
 
   <select id="selectByPreChapterId" resultType="java.lang.Integer">
-    select chapter_id from pc_chapter where chapter_id<![CDATA[ < ]]>#{chapterId,jdbcType=INTEGER} and book_id=#{bookId,jdbcType=INTEGER}  order by chapter_id desc limit 1
+    select chapter_id from pc_chapter
+    where chapter_id<![CDATA[ < ]]>#{chapterId,jdbcType=INTEGER}
+    and book_id=#{bookId,jdbcType=INTEGER}
+    order by chapter_id desc limit 1
   </select>
 
   <select id="selectByNextChapterId" resultType="java.lang.Integer">
-    select chapter_id from pc_chapter where chapter_id <![CDATA[ > ]]>#{chapterId,jdbcType=INTEGER} and book_id=#{bookId,jdbcType=INTEGER}  order by chapter_id asc limit 1
+    select chapter_id from pc_chapter
+    where chapter_id <![CDATA[ > ]]>#{chapterId,jdbcType=INTEGER}
+    and book_id=#{bookId,jdbcType=INTEGER}
+    order by chapter_id asc limit 1
   </select>
 
 
@@ -60,7 +76,7 @@
     where novel_id = #{novelId,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.pachong.model.PCNovel" >
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="novelId" parameterType="com.pachong.model.PCNovel" >
     insert into pc_novel
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="novelId != null" >

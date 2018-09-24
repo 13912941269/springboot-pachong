@@ -10,6 +10,7 @@ import com.pachong.model.PCColum;
 import com.pachong.model.PCNovel;
 import com.pachong.service.BookService;
 import com.pachong.util.PaChongUtil;
+import com.pachong.util.TxtExport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.text.DateFormat;
@@ -97,10 +98,11 @@ public class BookServiceImpl implements BookService {
                         pcchapterdao.insertSelective(pcChapter);
                         String novellinkurl=(String)zjparam.get("link");
                         String detail = pachong.detail(novellinkurl);
-                        PCNovel pcNovel=new PCNovel();
-                        pcNovel.setChapterId(pcChapter.getChapterId());
-                        pcNovel.setVovelDetail(detail);
-                        pcnoveldao.insertSelective(pcNovel);
+                        //PCNovel pcNovel=new PCNovel();
+                        //pcNovel.setChapterId(pcChapter.getChapterId());
+                        //pcNovel.setVovelDetail(detail);
+                        //pcnoveldao.insertSelective(pcNovel);
+                        TxtExport.writeText("chapter_file_"+pcChapter.getChapterId(),detail);
                     }
                 }
 

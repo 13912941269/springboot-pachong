@@ -477,7 +477,7 @@
                                     } else {
                                         reject();
                                     }
-                                    $('.add_tc').fadeOut();
+                                    //$('.add_tc').fadeOut();
                                 }, 'json');
                             });
                         }else{
@@ -495,7 +495,7 @@
                             if(data.length > 0){
                                 callback && callback(data);
                             }
-                            $('.add_tc').fadeOut();
+                            //$('.add_tc').fadeOut();
                         },'json')
                     };
 
@@ -509,7 +509,7 @@
                                 }else{
                                     reject({msg:'fail'});
                                 }
-                                $('.add_tc').fadeOut();
+                               //$('.add_tc').fadeOut();
                             },'json')
                         });
                     }
@@ -530,7 +530,7 @@
                                 getCurChapterContent(data.chapterId,UIcallback);
                                 Util.StorageSetter('last_chapter_id',data.chapterId);
                             }
-                            $('.add_tc').fadeOut();
+                            //$('.add_tc').fadeOut();
                         },'json')
                     };
 
@@ -548,7 +548,7 @@
                                 getCurChapterContent(data.chapterId,UIcallback);
                                 Util.StorageSetter('last_chapter_id',data.chapterId);
                             }
-                            $('.add_tc').fadeOut();
+                            //$('.add_tc').fadeOut();
                         },'json')
                     };
 
@@ -571,6 +571,7 @@
                     }
                     return function(data){
                         container.html(parseChapterData(data));
+                        $('.add_tc').fadeOut();
                     }
                 }
                 

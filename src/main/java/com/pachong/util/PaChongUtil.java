@@ -91,9 +91,9 @@ public class PaChongUtil {
                     List listBook=new ArrayList();
                     Document noveldoc = Jsoup.parse(element.toString());
 
-                    Elements h2ele = noveldoc.getElementsByTag("h2");
-                    String newColum=columName+"-"+h2ele.eq(0).text();
-                    mapBook.put("colum",newColum);
+                    //Elements h2ele = noveldoc.getElementsByTag("h2");
+                    //String newColum=columName+"-"+h2ele.eq(0).text();
+                    mapBook.put("colum",columName);
 
                     Elements ulele=noveldoc.getElementsByTag("ul");
                     Document  uldoc= Jsoup.parse(ulele.eq(0).toString());

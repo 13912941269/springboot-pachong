@@ -1,5 +1,7 @@
 package com.pachong.controller;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.pachong.dbmapper.PCBookMapper;
 import com.pachong.dbmapper.PCChapterMapper;
 import com.pachong.dbmapper.PCColumMapper;
@@ -10,6 +12,8 @@ import com.pachong.model.PCNovel;
 import com.pachong.service.BookService;
 import com.pachong.util.EncrypDES;
 import com.pachong.util.PaChongUtil;
+import com.pachong.util.TxtExport;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,11 +67,33 @@ public class TestController {
      */
     @RequestMapping("startindex")
     public void startIndex(){
-        bookService.insertBookIn(URLTWO);
+        bookService.insertBookIn(URLFOUR);
     }
 
 
 
+
+    /**
+     * 转换text
+     * @return
+     */
+    @RequestMapping("exchangetext")
+    public void exChangeText(Integer pageNum){
+        if(pageNum==null){
+            pageNum=1;
+        }
+        Page page = PageHelper.startPage(pageNum, 100, true);
+        List<PCNovel> list = novelDao.selectAllNovel();
+        for(PCNovel pcNovel:list){
+            if(StringUtils.isNotEmpty(pcNovel.getVovelDetail())){
+                TxtExport.writeText("chapter_file_"+pcNovel.getChapterId(),pcNovel.getVovelDetail());
+            }
+        }
+        if(pageNum<page.getPages()){
+            pageNum++;
+            exChangeText(pageNum);
+        }
+    }
 
 
 
