@@ -27,8 +27,9 @@ public class QuartzService {
 
     @Scheduled(cron="0 55 23 * * ?")
     public void timerToNow(){
-        System.out.println("11");
+        //System.out.println("11");
         //bookService.insertBookIn(URLONE);
+        bookService.exChangeText(1);
         bookService.insertBookIn(URLTWO);
         bookService.insertBookIn(URLTHREE);
         bookService.insertBookIn(URLFOUR);

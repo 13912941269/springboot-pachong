@@ -78,21 +78,8 @@ public class TestController {
      * @return
      */
     @RequestMapping("exchangetext")
-    public void exChangeText(Integer pageNum){
-        if(pageNum==null){
-            pageNum=1;
-        }
-        Page page = PageHelper.startPage(pageNum, 100, true);
-        List<PCNovel> list = novelDao.selectAllNovel();
-        for(PCNovel pcNovel:list){
-            if(StringUtils.isNotEmpty(pcNovel.getVovelDetail())){
-                TxtExport.writeText("chapter_file_"+pcNovel.getChapterId(),pcNovel.getVovelDetail());
-            }
-        }
-        if(pageNum<page.getPages()){
-            pageNum++;
-            exChangeText(pageNum);
-        }
+    public void exChangeText(){
+        bookService.exChangeText(1);
     }
 
 
