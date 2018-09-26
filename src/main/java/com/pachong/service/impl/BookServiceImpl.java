@@ -114,7 +114,7 @@ public class BookServiceImpl implements BookService {
         return null;
     }
 
-    @Override
+    /*@Override
     public void exChangeText(Integer pageNum) {
         Page page = PageHelper.startPage(pageNum, 100, true);
         List<PCNovel> list = pcnoveldao.selectAllNovel();
@@ -129,5 +129,5 @@ public class BookServiceImpl implements BookService {
         }else{
             return;
         }
-    }
+    }*/
 }

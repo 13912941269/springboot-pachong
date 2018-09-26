@@ -88,4 +88,20 @@
     </set>
     where chapter_id = #{chapterId,jdbcType=INTEGER}
   </update>
+
+
+
+  <select id="selectByPreChapterId" resultType="java.lang.Integer">
+    select chapter_id from pc_chapter
+    where chapter_id<![CDATA[ < ]]>#{chapterId,jdbcType=INTEGER}
+    and book_id=#{bookId,jdbcType=INTEGER}
+    order by chapter_id desc limit 1
+  </select>
+
+  <select id="selectByNextChapterId" resultType="java.lang.Integer">
+    select chapter_id from pc_chapter
+    where chapter_id <![CDATA[ > ]]>#{chapterId,jdbcType=INTEGER}
+    and book_id=#{bookId,jdbcType=INTEGER}
+    order by chapter_id asc limit 1
+  </select>
 </mapper>

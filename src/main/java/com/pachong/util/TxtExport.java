@@ -6,7 +6,7 @@ public class TxtExport {
     public static Boolean writeText(String fileName,String context){
         Boolean flag=true;
         File file = new File(path+fileName+".txt");
-        if(!file.exists()){
+        if(!file.getParentFile().exists()){
             file.getParentFile().mkdirs();
         }
         try {
@@ -23,4 +23,29 @@ public class TxtExport {
         }
         return flag;
     }
+
+
+    public static String readToString(String fileName) {
+        String encoding = "UTF-8";
+        File file = new File(path+fileName+".txt");
+        Long filelength = file.length();
+        byte[] filecontent = new byte[filelength.intValue()];
+        try {
+            FileInputStream in = new FileInputStream(file);
+            in.read(filecontent);
+            in.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            return new String(filecontent, encoding);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 }

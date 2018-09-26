@@ -8,6 +8,6 @@ public interface BookService {
 
     Map insertBookIn(String url);
 
-    void exChangeText(Integer pageNum);
+    //void exChangeText(Integer pageNum);
 
 }

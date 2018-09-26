@@ -444,6 +444,7 @@
                     //todo 实现和阅读器相关的数据交互的方法
                     var Chapter_id;
                     var ChapterTotal;
+                    var indexChapter;
                     var init = function(UIcallback){
                         getFictionInfoPromise().then(function(d){
                              return getCurChapterContentPromise();
@@ -472,7 +473,8 @@
                                         if (Chapter_id == null) {
                                             Chapter_id = data[0].chapterId;
                                         }
-                                        ChapterTotal = 0;
+                                        ChapterTotal = data[data.length-1].chapterId;
+                                        indexChapter=data[0].chapterId;
                                         resolve();
                                     } else {
                                         reject();
@@ -492,10 +494,12 @@
                     var getCurChapterContent = function(chapter_id,callback){
                         $('.add_tc').fadeIn();
                         $.get('findnovel?chapterId=' + chapter_id, function(data){
-                            if(data.length > 0){
+                            //if(data.length > 0){
+                                //Util.StorageSetter('last_chapter_id',chapter_id);
                                 callback && callback(data);
-                            }
-                            //$('.add_tc').fadeOut();
+                            //}else{
+                                //$('.add_tc').fadeOut();
+                            //}
                         },'json')
                     };
 
@@ -504,12 +508,12 @@
                         $('.add_tc').fadeIn();
                         return new Promise(function(resolve,reject){
                             $.get('findnovel?chapterId=' + Chapter_id, function(data){
-                                if(data.length > 0){
+                                //if(data.length > 0){
                                     resolve(data);
-                                }else{
-                                    reject({msg:'fail'});
-                                }
-                               //$('.add_tc').fadeOut();
+                                //}else{
+                                    //$('.add_tc').fadeOut();
+                                    //reject({msg:'fail'});
+                                //}
                             },'json')
                         });
                     }
@@ -520,7 +524,7 @@
                     
                     var prevChapter = function(UIcallback){
                         Chapter_id = parseInt(Chapter_id,10);
-                        if(Chapter_id === 0){
+                        if(Chapter_id === indexChapter){
                             return;
                         }
                         $('.add_tc').fadeIn();
@@ -530,7 +534,7 @@
                                 getCurChapterContent(data.chapterId,UIcallback);
                                 Util.StorageSetter('last_chapter_id',data.chapterId);
                             }
-                            //$('.add_tc').fadeOut();
+                            $('.add_tc').fadeOut();
                         },'json')
                     };
 
@@ -548,7 +552,7 @@
                                 getCurChapterContent(data.chapterId,UIcallback);
                                 Util.StorageSetter('last_chapter_id',data.chapterId);
                             }
-                            //$('.add_tc').fadeOut();
+                            $('.add_tc').fadeOut();
                         },'json')
                     };
 
@@ -564,9 +568,8 @@
                 function readerBaseFrame(container){
                     //todo 渲染基本的UI
                     function parseChapterData(jsonData){
-                        //var jsonObj = JSON.parse(jsonData);
-                        var html = '<h4>' + jsonData[0].chapterTitle + '</h4>';
-                        html += '<p>' + jsonData[0].vovelDetail + '</p>';
+                        var html = '<h4>' + jsonData.chapterTitle + '</h4>';
+                        html += '<p>' + jsonData.chapterDetail + '</p>';
                         return html;
                     }
                     return function(data){
@@ -680,8 +683,6 @@
 
 
             function backToTop() {
-                //$('html,body').animate({scrollTop: 0}, 800);
-                //$('html').animate({ scrollTop: 0 }, 800);
                 window.scrollTo(0,0);
             }
 

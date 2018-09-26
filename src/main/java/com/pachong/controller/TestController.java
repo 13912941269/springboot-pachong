@@ -1,25 +1,15 @@
 package com.pachong.controller;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import com.pachong.dbmapper.PCBookMapper;
 import com.pachong.dbmapper.PCChapterMapper;
 import com.pachong.dbmapper.PCColumMapper;
-import com.pachong.dbmapper.PCNovelMapper;
 import com.pachong.model.PCBook;
 import com.pachong.model.PCChapter;
-import com.pachong.model.PCNovel;
 import com.pachong.service.BookService;
-import com.pachong.util.EncrypDES;
-import com.pachong.util.PaChongUtil;
 import com.pachong.util.TxtExport;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,9 +47,6 @@ public class TestController {
     @Autowired
     private PCChapterMapper chapterDao;
 
-    @Autowired
-    private PCNovelMapper novelDao;
-
 
     /**
      * 书籍爬虫
@@ -74,13 +61,23 @@ public class TestController {
 
 
     /**
-     * 转换text
+     * 文件夹转换
      * @return
      */
     @RequestMapping("exchangetext")
     public void exChangeText(){
-        bookService.exChangeText(1);
+
     }
+
+
+    /**
+     * 转换text
+     * @return
+     */
+    /*@RequestMapping("exchangetext")
+    public void exChangeText(){
+        bookService.exChangeText(1);
+    }*/
 
 
 
@@ -117,9 +114,13 @@ public class TestController {
      * @return
      */
     @RequestMapping("findnovel")
-    public List<PCNovel> findNovel(Integer chapterId){
-        List<PCNovel> list = novelDao.selectByChapterId(chapterId);
-        return list;
+    public Map findNovel(Integer chapterId){
+        PCChapter pcChapter = chapterDao.selectByPrimaryKey(chapterId);
+        Map paramMap=new HashMap();
+        String chapterDetail = TxtExport.readToString("chapter_file_" + chapterId);
+        paramMap.put("chapterDetail",chapterDetail);
+        paramMap.put("chapterTitle",pcChapter.getChapterTitle());
+        return paramMap;
     }
 
 
@@ -133,7 +134,7 @@ public class TestController {
         Map map=new HashMap();
         map.put("chapterId",nowChapterId);
         map.put("bookId",bookId);
-        Integer chapterId = novelDao.selectByNextChapterId(map);
+        Integer chapterId = chapterDao.selectByNextChapterId(map);
         Map parammap=new HashMap();
         parammap.put("chapterId",chapterId);
         return parammap;
@@ -150,7 +151,7 @@ public class TestController {
         Map map=new HashMap();
         map.put("chapterId",nowChapterId);
         map.put("bookId",bookId);
-        Integer chapterId = novelDao.selectByPreChapterId(map);
+        Integer chapterId = chapterDao.selectByPreChapterId(map);
         Map parammap=new HashMap();
         parammap.put("chapterId",chapterId);
         return parammap;

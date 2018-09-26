@@ -15,4 +15,8 @@ public interface PCChapterMapper {
     PCChapter selectByChapterNameAndBookId(Map map);
 
     List<PCChapter> selectByBookId(Integer bookId);
+
+    Integer selectByPreChapterId(Map map);
+
+    Integer selectByNextChapterId(Map map);
 }

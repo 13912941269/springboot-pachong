@@ -1,12 +1,15 @@
 package com.pachong.common;
 
 import com.pachong.service.BookService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
 public class QuartzService {
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     private static final String URLONE="https://www.booktxt.net/xiaoshuodaquan/";
 
@@ -27,14 +30,23 @@ public class QuartzService {
 
     @Scheduled(cron="0 55 23 * * ?")
     public void timerToNow(){
-        //System.out.println("11");
-        //bookService.insertBookIn(URLONE);
-        bookService.exChangeText(1);
+        logger.info("定时任务启动");
         bookService.insertBookIn(URLTWO);
+        logger.info("玄幻小说更新完成");
+
         bookService.insertBookIn(URLTHREE);
+        logger.info("修真小说更新完成");
+
         bookService.insertBookIn(URLFOUR);
+        logger.info("都市小说更新完成");
+
         bookService.insertBookIn(URLFIVE);
+        logger.info("穿越小说更新完成");
+
         bookService.insertBookIn(URLSIX);
+        logger.info("网游小说更新完成");
+
         bookService.insertBookIn(URLSEVEN);
+        logger.info("科幻小说更新完成");
     }
 }
